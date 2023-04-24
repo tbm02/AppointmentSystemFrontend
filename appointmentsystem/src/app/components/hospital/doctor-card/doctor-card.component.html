@@ -1,0 +1,26 @@
+
+<div class="doctor-card">
+  <div class="doctor-data-part">
+  <div class="doctor-card-image">
+    <img [src]="doctor.imageLink" alt="Doctor Avatar">
+  </div>
+  <div class="doctor-card-content">
+    <h3 class="doctor-card-title">{{ doctor.firstName }} {{ doctor.lastName }}</h3>
+    <p class="doctor-card-subtitle">{{ doctor.specialization.join(', ') }}</p>
+    <div class="doctor-card-details">
+      <p class="doctor-card-detail">{{ doctor.hospital.hospitalName }}</p>
+      <p class="doctor-card-detail">{{ doctor.slotDuration }} mins slot | {{ doctor.bufferTime }} mins buffer</p>
+    </div>
+    <div>
+
+      <p class="doctor-card-detail">Available Time : {{ doctor.startTime }} to {{ doctor.endTime }}</p>
+      <p class="doctor-card-detail">Recess Time : {{ doctor.recessStartTime }} to {{ doctor.recessEndTime }}</p>
+    </div>
+    </div>
+  </div>
+    <div class="doctor-card-button">
+    <div class="doctor-card-actions">
+      <button class="doctor-card-button doctor-card-button-primary">View Profile</button>
+    </div>
+  </div>
+</div>

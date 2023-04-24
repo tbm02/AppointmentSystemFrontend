@@ -1,0 +1,34 @@
+<div *ngIf="!isLoading && !hasError" class="page-container">
+
+
+  <div class="form-container">
+    <form [formGroup]="userFormGroup" class="form">
+
+      <div class="form-element">
+        <label class="form-label" for="email">Email*</label>
+        <input type="email" id="email" class="form-input" placeholder="e.g.abc@xyz.com" formControlName="email" />
+      </div>
+
+      <div class="form-element">
+        <label class="form-label" for="password">Password*</label>
+        <input type="password" id="password" class="form-input" formControlName="password" />
+      </div>
+
+
+      <button type="submit" (click)="submit($event)" class="btn btn-primary">
+        Submit
+      </button>
+    </form>
+    <a routerLink="/user/signup">Don't Have an Account ? Create New Here</a>
+  </div>
+</div>
+<div *ngIf="isLoading">
+  Loading
+</div>
+
+<div *ngIf="hasError">
+  Errrors
+  <p *ngFor="let error of errors">
+    <!-- {{error.message ? error.message :""}} -->
+  </p>
+</div>

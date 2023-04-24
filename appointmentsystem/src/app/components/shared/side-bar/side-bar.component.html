@@ -1,0 +1,17 @@
+<div class="sidebar-container" [ngClass]="{ 'active': isActive }">
+  <div class="sidebar-header">
+    <h3>Argus appointment system</h3>
+  </div>
+
+  <ul class="sidebar-menu">
+    <li [routerLink]="obj.link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngFor="let obj of labelAndLinks">
+      <i class="fas fa-home"></i> {{obj.label}}
+    </li>
+      </ul>
+
+  <div class="sidebar-footer">
+    <p>Powered by Argusoft</p>
+  </div>
+
+
+</div>

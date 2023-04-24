@@ -1,0 +1,56 @@
+/* Set margin and padding to 0 for the whole page */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Define a custom CSS variable for the height of the header */
+:root {
+  --header-height: 70px;
+}
+
+/* Header styles */
+header {
+  height: var(--header-height);
+  background-color: #41a69c;
+  color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px; /* Add margin to separate header and sidebar */
+}
+
+/* Sidebar styles */
+aside {
+  width: 250px;
+  background-color: #f2f2f2;
+  position: fixed;
+  top: var(--header-height);
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  margin-right: 20px; /* Add margin to separate sidebar and main content */
+  overflow-y: auto;
+}
+
+/* Main content styles */
+section {
+  margin-top: var(--header-height); /* Add space for the header */
+  margin-left: 280px; /* Adjust to account for sidebar width and margin */
+  margin-right: 20px; /* Add margin to separate main content and sidebar */
+}
+
+/* Footer styles */
+footer {
+  background-color: #007bff;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-top: 20px; /* Add margin to separate footer and main content */
+}

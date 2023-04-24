@@ -1,0 +1,116 @@
+/* Navbar container */
+.navbar {
+  background-color: #41a69c; /* Change to desired blueish or greenish color */
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Navbar brand */
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar-brand img {
+  max-height: 50px; /* Change to desired logo size */
+  object-fit: contain;
+}
+
+/* Navbar links */
+.navbar-links {
+  display: flex;
+}
+
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.navbar-links a:hover {
+  background-color: #fff;
+  color: #41a69c; /* Change to desired contrasting color */
+}
+
+/* Navbar search */
+.navbar-search {
+  margin-left: auto;
+}
+
+.navbar-search input[type="text"] {
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+/* Responsive navbar */
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-search {
+    margin-left: 0;
+  }
+
+  .navbar-brand {
+    margin-right: auto;
+  }
+
+  .navbar-toggle {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    padding: 10px;
+  }
+
+  .navbar-toggle span {
+    display: block;
+    height: 3px;
+    width: 25px;
+    background-color: #fff;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-toggle span:last-child {
+    margin-bottom: 0;
+  }
+
+  .navbar-collapse {
+    display: none;
+  }
+
+  .navbar-collapse.show {
+    display: block;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: #41a69c; /* Change to desired blueish or greenish color */
+    padding: 10px;
+  }
+
+  .navbar-collapse a {
+    display: block;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-collapse a:hover {
+    background-color: #fff;
+    color: #41a69c; /* Change to desired contrasting color */
+  }
+}

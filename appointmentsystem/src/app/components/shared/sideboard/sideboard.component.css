@@ -1,0 +1,9 @@
+.sideboard-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color:  #07c4f33d;
+  border-radius: 10px;
+  height: 100vh;
+  padding:10px
+}

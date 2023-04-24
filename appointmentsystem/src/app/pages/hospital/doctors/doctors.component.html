@@ -1,0 +1,15 @@
+<div class="doctor-list-page">
+  <div class="doctor-list-filters">
+    <app-shared-filter-component [fieldValues]="filterfieldValues" (filterObject)="applyFilter($event)"></app-shared-filter-component>
+    <input type="text" placeholder="Search by doctor name" [(ngModel)]="searchQuery">
+    <select class="form-control" [(ngModel)]="selectedSpecialization">
+      <option value="">Select specialization</option>
+      <option *ngFor="let specialization of specializations" [ngValue]="specialization">{{ specialization.specializationName }}</option>
+    </select>
+    <button (click)="filterDoctors()">Filter</button>
+  </div>
+  <div class="doctor-list">
+    <app-hospital-doctor-card *ngFor="let doctor of filteredDoctors" [doctor]="doctor"></app-hospital-doctor-card>
+    <p *ngIf="filteredDoctors.length === 0">No doctors found.</p>
+  </div>
+</div>

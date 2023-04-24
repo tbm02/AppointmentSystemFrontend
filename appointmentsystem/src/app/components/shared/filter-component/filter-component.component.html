@@ -1,0 +1,20 @@
+<div class="filter-container">
+  <div class="button-container">
+    <button (click)="showfields()">Add Filter</button>
+  </div>
+  <div *ngIf="displayfields">
+    <div class="fields-container">
+      <div *ngFor="let field of fieldValues">
+        <button (click)="showfieldValues(field.field)">{{field.field}}</button>
+        <div class="fields-values-container">
+          <div *ngFor="let value of field.values">
+           <span>{{value}}</span>
+           <input type="checkbox" (change)="handleSelection(field.field,value)">
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+  </div>
+</div>

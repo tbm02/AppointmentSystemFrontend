@@ -1,0 +1,14 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a routerLink="#">
+      <img src="../../../../assets//svg/logo-no-background.svg"/>
+    </a>
+  </div>
+  <div class="navbar-links">
+    <a [routerLink]="obj.link" *ngFor="let obj of labelAndLinks" routerLinkActive="active">{{obj.label}} </a>
+
+  </div>
+  <div class="navbar-search">
+    <input type="text" placeholder="Search...">
+  </div>
+</nav>
