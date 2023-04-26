@@ -174,7 +174,7 @@ export class DoctorsComponent implements OnInit {
       slotDuration: '30',
       bufferTime: '10',
       specialization: [
-        { specializationId: '1', specializationName: 'Pediatrics' }
+        { specializationId: '3', specializationName: 'Gynac' }
       ],
 
       imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
@@ -187,31 +187,33 @@ export class DoctorsComponent implements OnInit {
   }
   applyFilter (filterParams: FilterObject[]) {
     const filteredDoctors = this.dummyDoctors.filter(doctor => {
-      let isMatch = false
+      let isMatch = true
       for (let filterParam of filterParams) {
         const doctorValue = doctor[filterParam.field as keyof Doctor]
+        const filterValues = filterParam.values
+
+        if (filterValues.length === 0) {
+          continue
+        }
 
         if (filterParam.inclusive) {
-          ;(doctorValue as any[]).forEach(value => {
-            console.log('Searching for inclusive ness')
-            isMatch =
-              isMatch ||
-              filterParam.values.includes(
-                value[filterParam.filterKey as keyof Object]
-              )
-          })
-        } else {
-          if (filterParam.values.length) {
-            
-            console.log('Checking for the exact match')
-            console.log(doctorValue)
-            
+          let localMatched:boolean = false ;
+          for (let value of doctorValue as any[]) {
+            const fieldValue = value[filterParam.filterKey as keyof Object]
+            if (filterValues.includes(fieldValue)) {
+              localMatched = true
+              break
+            }
           }
-         }
-      }
-      console.log('Returning the is Match from here ', isMatch)
-      return isMatch
-    })
+          isMatch = isMatch && localMatched
+        } 
+        else{
+          let localMatched = filterParam.values.some(val=>val===doctorValue)
+          isMatch = isMatch && localMatched
+        }
+    }
+    return isMatch
+  })
 
     this.filteredDoctors = filteredDoctors
   }
