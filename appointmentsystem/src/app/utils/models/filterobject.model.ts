@@ -2,5 +2,6 @@ export interface FilterObject{
 field:string,
 values:any[],
 inclusive:boolean,
-type?:boolean
+type?:boolean,
+filterKey?:string
 }

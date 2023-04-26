@@ -28,7 +28,7 @@ showfieldValues(field:string){
 
 ngOnInit(): void {
     this.fieldValues.forEach(object=>{
-      this.selectedValues.push({field:object.field,values:[],inclusive:object.inclusive})
+      this.selectedValues.push({field:object.field,values:[],inclusive:object.inclusive,filterKey:object.filterKey})
     })
 }
 handleSelection(field:string,value:string){

@@ -1,49 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { Doctor } from 'src/app/utils/dto/doctor.model';
-import { Specialization } from 'src/app/utils/dto/specialization.model';
-import { FilterObject } from 'src/app/utils/models/filterobject.model';
+import { Component, OnInit } from '@angular/core'
+import { Doctor } from 'src/app/utils/dto/doctor.model'
+import { Specialization } from 'src/app/utils/dto/specialization.model'
+import { FilterObject } from 'src/app/utils/models/filterobject.model'
 
 @Component({
   selector: 'app-hospital-doctors',
   templateUrl: './doctors.component.html',
-  styleUrls: ['./doctors.component.css'],
+  styleUrls: ['./doctors.component.css']
 })
-export class DoctorsComponent implements OnInit{
-  searchQuery!: string;
-  selectedSpecialization!: Specialization;
+export class DoctorsComponent implements OnInit {
+  searchQuery!: string
+  selectedSpecialization!: Specialization
   specializations: Specialization[] = [
-    { specializationId: '1', specializationName: 'Neurologist' ,
-  
-  },
-  { specializationId: '2', specializationName: 'Orthopadic' ,
-  
-  },{ specializationId: '3', specializationName: 'Gynac' ,
-  
-},
-  ];
+    { specializationId: '1', specializationName: 'Neurologist' },
+    { specializationId: '2', specializationName: 'Orthopadic' },
+    { specializationId: '3', specializationName: 'Gynac' }
+  ]
   filterfieldValues: FilterObject[] = [
     {
       field: 'specialization',
       values: ['Neurologist', 'Orthopadic', 'Gynac'],
-      inclusive:true
-
+      inclusive: true,
+      filterKey: 'specializationName'
     },
-    { field: 'gender', values: ['Male', 'Female'] ,inclusive:false},
+    { field: 'gender', values: ['male', 'female'], inclusive: false }
+  ]
 
-  ];
-
-  filterDoctors() {
-    this.filteredDoctors = this.dummyDoctors.filter((doctor) => {
+  filterDoctors () {
+    this.filteredDoctors = this.dummyDoctors.filter(doctor => {
       console.log(
         Object.values(this.specializations[0]).includes(
           this.selectedSpecialization.specializationId
         )
-      );
+      )
       return Object.values(this.specializations[0]).includes(
         this.selectedSpecialization.specializationId
-      );
-    });
-    console.log(this.filteredDoctors);
+      )
+    })
+    console.log(this.filteredDoctors)
   }
 
   dummyDoctors: Doctor[] = [
@@ -53,15 +47,15 @@ export class DoctorsComponent implements OnInit{
         email: 'virat@hospital.com',
         password: '2928',
         roleId: '2',
-        userId: '1',
+        userId: '1'
       },
       firstName: 'Jane',
       lastName: 'Doe',
       hospital: {
         hospitalId: '1',
-        hospitalName: 'ABC Hospital',
+        hospitalName: 'ABC Hospital'
       },
-      gender: 'female',
+      gender: 'male',
       dob: new Date('1985-03-15'),
       recessStartTime: '12:00',
       recessEndTime: '13:00',
@@ -70,10 +64,10 @@ export class DoctorsComponent implements OnInit{
       slotDuration: '30',
       bufferTime: '10',
       specialization: [
-        { specializationId: '1', specializationName: 'Neurologist' },
+        { specializationId: '1', specializationName: 'Neurologist' }
       ],
 
-      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg',
+      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
     },
     {
       user: {
@@ -81,15 +75,15 @@ export class DoctorsComponent implements OnInit{
         email: 'virat@hospital.com',
         password: '2928',
         roleId: '2',
-        userId: '1',
+        userId: '1'
       },
       firstName: 'Jane',
       lastName: 'Doe',
       hospital: {
         hospitalId: '1',
-        hospitalName: 'ABC Hospital',
+        hospitalName: 'ABC Hospital'
       },
-      gender: 'female',
+      gender: 'male',
       dob: new Date('1985-03-15'),
       recessStartTime: '12:00',
       recessEndTime: '13:00',
@@ -97,11 +91,9 @@ export class DoctorsComponent implements OnInit{
       endTime: '17:00',
       slotDuration: '30',
       bufferTime: '10',
-      specialization: [
-        { specializationId: '3', specializationName: 'Gynac' },
-      ],
+      specialization: [{ specializationId: '3', specializationName: 'Gynac' }],
 
-      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg',
+      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
     },
     {
       user: {
@@ -109,15 +101,15 @@ export class DoctorsComponent implements OnInit{
         email: 'virat@hospital.com',
         password: '2928',
         roleId: '2',
-        userId: '1',
+        userId: '1'
       },
       firstName: 'Jane',
       lastName: 'Doe',
       hospital: {
         hospitalId: '1',
-        hospitalName: 'ABC Hospital',
+        hospitalName: 'ABC Hospital'
       },
-      gender: 'female',
+      gender: 'male',
       dob: new Date('1985-03-15'),
       recessStartTime: '12:00',
       recessEndTime: '13:00',
@@ -126,10 +118,10 @@ export class DoctorsComponent implements OnInit{
       slotDuration: '30',
       bufferTime: '10',
       specialization: [
-        { specializationId: '1', specializationName: 'Neurologist' },
+        { specializationId: '1', specializationName: 'Neurologist' }
       ],
 
-      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg',
+      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
     },
     {
       user: {
@@ -137,15 +129,15 @@ export class DoctorsComponent implements OnInit{
         email: 'virat@hospital.com',
         password: '2928',
         roleId: '2',
-        userId: '1',
+        userId: '1'
       },
       firstName: 'Jane',
       lastName: 'Doe',
       hospital: {
         hospitalId: '1',
-        hospitalName: 'ABC Hospital',
+        hospitalName: 'ABC Hospital'
       },
-      gender: 'female',
+      gender: 'male',
       dob: new Date('1985-03-15'),
       recessStartTime: '12:00',
       recessEndTime: '13:00',
@@ -154,10 +146,10 @@ export class DoctorsComponent implements OnInit{
       slotDuration: '30',
       bufferTime: '10',
       specialization: [
-        { specializationId: '1', specializationName: 'Pediatrics' },
+        { specializationId: '1', specializationName: 'Pediatrics' }
       ],
 
-      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg',
+      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
     },
     {
       user: {
@@ -165,13 +157,13 @@ export class DoctorsComponent implements OnInit{
         email: 'virat@hospital.com',
         password: '2928',
         roleId: '2',
-        userId: '1',
+        userId: '1'
       },
       firstName: 'Jane',
       lastName: 'Doe',
       hospital: {
         hospitalId: '1',
-        hospitalName: 'ABC Hospital',
+        hospitalName: 'ABC Hospital'
       },
       gender: 'female',
       dob: new Date('1985-03-15'),
@@ -182,52 +174,46 @@ export class DoctorsComponent implements OnInit{
       slotDuration: '30',
       bufferTime: '10',
       specialization: [
-        { specializationId: '1', specializationName: 'Pediatrics' },
+        { specializationId: '1', specializationName: 'Pediatrics' }
       ],
 
-      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg',
-    },
-  ];
-  filteredDoctors: Doctor[] = this.dummyDoctors;
-  ngOnInit(): void {
+      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
+    }
+  ]
+  filteredDoctors: Doctor[] = this.dummyDoctors
+  ngOnInit (): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-
   }
-  applyFilter(filterParams:FilterObject[]) {
+  applyFilter (filterParams: FilterObject[]) {
     const filteredDoctors = this.dummyDoctors.filter(doctor => {
-      for (const filterParam of filterParams) {
-        const doctorFieldValue = doctor[filterParam.field as keyof  Doctor ];
-        const filterParamValues = filterParam.values;
-        console.log(doctorFieldValue,"========",filterParamValues)
-        if (doctorFieldValue === undefined) {
-          return false;
-        }
-        let isMatch = false;
-        
-        if(filterParam.inclusive){
-            Array.from(doctorFieldValue as any[]).forEach(val=>{
-              console.log(val)
-              isMatch = isMatch || filterParamValues.includes(val.specializationName)
-            })
-        }else{
-          isMatch = filterParamValues.some(filterValue => filterValue === doctorFieldValue)
-        }
-        console.log(isMatch)
-        if (!isMatch) {
-          return false;
-        }
+      let isMatch = false
+      for (let filterParam of filterParams) {
+        const doctorValue = doctor[filterParam.field as keyof Doctor]
+
+        if (filterParam.inclusive) {
+          ;(doctorValue as any[]).forEach(value => {
+            console.log('Searching for inclusive ness')
+            isMatch =
+              isMatch ||
+              filterParam.values.includes(
+                value[filterParam.filterKey as keyof Object]
+              )
+          })
+        } else {
+          if (filterParam.values.length) {
+            
+            console.log('Checking for the exact match')
+            console.log(doctorValue)
+            
+          }
+         }
       }
+      console.log('Returning the is Match from here ', isMatch)
+      return isMatch
+    })
 
-      // If the doctor matches all selected filter parameters, return true and include the doctor in the filtered list
-      return true;
-    });
-
-    this.filteredDoctors = filteredDoctors;
-
+    this.filteredDoctors = filteredDoctors
   }
-  filterByFields(filterParam:FilterObject){
-
-
-  }
+  filterByFields (filterParam: FilterObject) {}
 }
