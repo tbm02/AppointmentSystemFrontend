@@ -1,20 +1,16 @@
 <div class="filter-container">
-  <div class="button-container">
-    <button (click)="showfields()">Add Filter</button>
-  </div>
-  <div *ngIf="displayfields">
-    <div class="fields-container">
-      <div *ngFor="let field of fieldValues">
-        <button (click)="showfieldValues(field.field)">{{field.field}}</button>
-        <div class="fields-values-container">
-          <div *ngFor="let value of field.values">
-           <span>{{value}}</span>
-           <input type="checkbox" (change)="handleSelection(field.field,value)">
-          </div>
+  <button class="add-filter-button" (click)="showfields()">Add Filter</button>
+  
+  <div *ngIf="displayfields" class="fields-container">
+    <div *ngFor="let field of fieldValues" class="field-container">
+      <button class="field-name-button" (click)="showfieldValues(field.field)">{{ field.field }}</button>
+      
+      <div class="field-values-container">
+        <div *ngFor="let value of field.values" class="field-value">
+          <input id="{{ field.field }}_{{ value }}" type="checkbox" class="field-value-checkbox" (change)="handleSelection(field.field, value)">
+          <label for="{{ field.field }}_{{ value }}" class="field-value-label">{{ value }}</label>
+        </div>
       </div>
     </div>
-  </div>
-
-
   </div>
 </div>

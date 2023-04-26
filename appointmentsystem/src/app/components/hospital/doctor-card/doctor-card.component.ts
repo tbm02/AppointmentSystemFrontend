@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Doctor } from 'src/app/utils/dto/doctor.model';
 
 @Component({
@@ -6,8 +6,14 @@ import { Doctor } from 'src/app/utils/dto/doctor.model';
   templateUrl: './doctor-card.component.html',
   styleUrls: ['./doctor-card.component.css']
 })
-export class DoctorCardComponent {
+export class DoctorCardComponent implements OnInit{
 
 
   @Input()doctor!:Doctor;
+  specializations!: string[];
+
+  ngOnInit(){
+    this.specializations = this.doctor.specialization.map(specialization=>specialization.specializationName)
+  }
+
 }

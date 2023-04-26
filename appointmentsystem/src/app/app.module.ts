@@ -20,6 +20,9 @@ import { UserRoutingModule } from './modules/user/user-routing.module';
 import { RouterModule } from '@angular/router';
 import { DoctorCardComponent } from './components/hospital/doctor-card/doctor-card.component';
 import { FilterComponentComponent } from './components/shared/filter-component/filter-component.component';
+import { AppointmentCardComponent } from './components/hospital/appointment-card/appointment-card.component';
+import { BarChartComponent } from './components/shared/bar-chart/bar-chart.component';
+import { PieChartComponent } from './components/shared/pie-chart/pie-chart.component';
 
 
 @NgModule({
@@ -27,7 +30,7 @@ import { FilterComponentComponent } from './components/shared/filter-component/f
     AppComponent,
 
     LandingPageComponent,
-
+     
 
 
 

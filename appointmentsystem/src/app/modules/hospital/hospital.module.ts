@@ -12,6 +12,7 @@ import { AppointmentsComponent } from 'src/app/pages/hospital/appointments/appoi
 import { DoctorsComponent } from 'src/app/pages/hospital/doctors/doctors.component';
 import { DoctorCardComponent } from 'src/app/components/hospital/doctor-card/doctor-card.component';
 import { FormsModule } from '@angular/forms';
+import { AppointmentCardComponent } from 'src/app/components/hospital/appointment-card/appointment-card.component';
 
 
 
@@ -24,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     AppointmentsComponent,
     DoctorsComponent,
     DoctorCardComponent,
+    AppointmentCardComponent
   ],
   imports: [
     CommonModule,

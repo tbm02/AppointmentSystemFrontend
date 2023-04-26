@@ -6,18 +6,20 @@ html, body {
 
 /* Define a custom CSS variable for the height of the header */
 :root {
-  --header-height: 70px;
+  --header-height: 60px;
 }
 
 /* Header styles */
 header {
   height: var(--header-height);
+  width: 100vw;
   background-color: #41a69c;
   color: #fff;
-  display: flex;
+  position: sticky;
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px; /* Add margin to separate header and sidebar */
+  display: flex;
 }
 
 /* Sidebar styles */
@@ -36,6 +38,8 @@ aside {
 /* Main content styles */
 section {
   margin-top: var(--header-height); /* Add space for the header */
+  /* position: relative; */
+  /* top: var(--header-height); */
   margin-left: 280px; /* Adjust to account for sidebar width and margin */
   margin-right: 20px; /* Add margin to separate main content and sidebar */
 }

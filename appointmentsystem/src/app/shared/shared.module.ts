@@ -7,12 +7,18 @@ import { SideBarComponent } from '../components/shared/side-bar/side-bar.compone
 import { RouterModule } from '@angular/router';
 import { FilterComponentComponent } from '../components/shared/filter-component/filter-component.component';
 import { FormsModule } from '@angular/forms';
+import { BarChartComponent } from '../components/shared/bar-chart/bar-chart.component';
+import { PieChartComponent } from '../components/shared/pie-chart/pie-chart.component';
 
 @NgModule({
-  declarations: [ RoleCardComponent, FooterComponent, HeaderComponent,FilterComponentComponent,
+  declarations: [ RoleCardComponent, FooterComponent, HeaderComponent,FilterComponentComponent,BarChartComponent,
+    PieChartComponent,
+
     SideBarComponent],
   imports: [CommonModule,RouterModule,FormsModule],
   exports:[ RoleCardComponent, FooterComponent, HeaderComponent,FilterComponentComponent,
-    SideBarComponent]
+    BarChartComponent,
+    PieChartComponent,
+    SideBarComponent,]
 })
 export class SharedModule {}

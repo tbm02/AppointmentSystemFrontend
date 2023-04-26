@@ -33,9 +33,7 @@ ngOnInit(): void {
 }
 handleSelection(field:string,value:string){
 const filterObj = this.selectedValues.find(obj => obj.field === field);
-console.log(filterObj)
 const valueIndex = filterObj?.values.indexOf(value);
-console.log(filterObj?.values.indexOf(value))
 if (valueIndex !== -1 && filterObj && valueIndex!==undefined) {
   filterObj?.values.splice(valueIndex, 1);
 

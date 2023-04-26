@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { FilterService } from 'src/app/services/user/shared/filter.service'
 import { Doctor } from 'src/app/utils/dto/doctor.model'
 import { Specialization } from 'src/app/utils/dto/specialization.model'
 import { FilterObject } from 'src/app/utils/models/filterobject.model'
@@ -26,20 +27,7 @@ export class DoctorsComponent implements OnInit {
     { field: 'gender', values: ['male', 'female'], inclusive: false }
   ]
 
-  filterDoctors () {
-    this.filteredDoctors = this.dummyDoctors.filter(doctor => {
-      console.log(
-        Object.values(this.specializations[0]).includes(
-          this.selectedSpecialization.specializationId
-        )
-      )
-      return Object.values(this.specializations[0]).includes(
-        this.selectedSpecialization.specializationId
-      )
-    })
-    console.log(this.filteredDoctors)
-  }
-
+  
   dummyDoctors: Doctor[] = [
     {
       user: {
@@ -103,7 +91,7 @@ export class DoctorsComponent implements OnInit {
         roleId: '2',
         userId: '1'
       },
-      firstName: 'Jane',
+      firstName: 'King Kohli',
       lastName: 'Doe',
       hospital: {
         hospitalId: '1',
@@ -118,7 +106,8 @@ export class DoctorsComponent implements OnInit {
       slotDuration: '30',
       bufferTime: '10',
       specialization: [
-        { specializationId: '1', specializationName: 'Neurologist' }
+        { specializationId: '1', specializationName: 'Neurologist' },
+        { specializationId: '3', specializationName: 'Gynac' }
       ],
 
       imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
@@ -182,40 +171,15 @@ export class DoctorsComponent implements OnInit {
   ]
   filteredDoctors: Doctor[] = this.dummyDoctors
   ngOnInit (): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-  }
+      }
   applyFilter (filterParams: FilterObject[]) {
-    const filteredDoctors = this.dummyDoctors.filter(doctor => {
-      let isMatch = true
-      for (let filterParam of filterParams) {
-        const doctorValue = doctor[filterParam.field as keyof Doctor]
-        const filterValues = filterParam.values
+this.filteredDoctors = FilterService.applyFilter<Doctor>(this.dummyDoctors,filterParams)
 
-        if (filterValues.length === 0) {
-          continue
-        }
 
-        if (filterParam.inclusive) {
-          let localMatched:boolean = false ;
-          for (let value of doctorValue as any[]) {
-            const fieldValue = value[filterParam.filterKey as keyof Object]
-            if (filterValues.includes(fieldValue)) {
-              localMatched = true
-              break
-            }
-          }
-          isMatch = isMatch && localMatched
-        } 
-        else{
-          let localMatched = filterParam.values.some(val=>val===doctorValue)
-          isMatch = isMatch && localMatched
-        }
-    }
-    return isMatch
-  })
-
-    this.filteredDoctors = filteredDoctors
-  }
+}
   filterByFields (filterParam: FilterObject) {}
+
+  addDoctor(){
+
+  }
 }

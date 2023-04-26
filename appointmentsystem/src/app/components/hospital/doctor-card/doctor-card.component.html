@@ -6,7 +6,7 @@
   </div>
   <div class="doctor-card-content">
     <h3 class="doctor-card-title">{{ doctor.firstName }} {{ doctor.lastName }}</h3>
-    <p class="doctor-card-subtitle">{{ doctor.specialization.join(', ') }}</p>
+    <p class="doctor-card-subtitle">{{ specializations.join(', ') }}</p>
     <div class="doctor-card-details">
       <p class="doctor-card-detail">{{ doctor.hospital.hospitalName }}</p>
       <p class="doctor-card-detail">{{ doctor.slotDuration }} mins slot | {{ doctor.bufferTime }} mins buffer</p>
