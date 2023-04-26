@@ -12,11 +12,18 @@ export class DoctorsComponent implements OnInit{
   searchQuery!: string;
   selectedSpecialization!: Specialization;
   specializations: Specialization[] = [
-    { specializationId: '1', specializationName: 'Pediatrics' },
+    { specializationId: '1', specializationName: 'Neurologist' ,
+  
+  },
+  { specializationId: '2', specializationName: 'Orthopadic' ,
+  
+  },{ specializationId: '3', specializationName: 'Gynac' ,
+  
+},
   ];
   filterfieldValues: FilterObject[] = [
     {
-      field: 'specializations',
+      field: 'specialization',
       values: ['Neurologist', 'Orthopadic', 'Gynac'],
       inclusive:true
 
@@ -63,7 +70,7 @@ export class DoctorsComponent implements OnInit{
       slotDuration: '30',
       bufferTime: '10',
       specialization: [
-        { specializationId: '1', specializationName: 'Pediatrics' },
+        { specializationId: '1', specializationName: 'Neurologist' },
       ],
 
       imageLink: 'https://randomuser.me/api/portraits/men/1.jpg',
@@ -91,7 +98,7 @@ export class DoctorsComponent implements OnInit{
       slotDuration: '30',
       bufferTime: '10',
       specialization: [
-        { specializationId: '1', specializationName: 'Pediatrics' },
+        { specializationId: '3', specializationName: 'Gynac' },
       ],
 
       imageLink: 'https://randomuser.me/api/portraits/men/1.jpg',
@@ -119,7 +126,7 @@ export class DoctorsComponent implements OnInit{
       slotDuration: '30',
       bufferTime: '10',
       specialization: [
-        { specializationId: '1', specializationName: 'Pediatrics' },
+        { specializationId: '1', specializationName: 'Neurologist' },
       ],
 
       imageLink: 'https://randomuser.me/api/portraits/men/1.jpg',
@@ -189,23 +196,26 @@ export class DoctorsComponent implements OnInit{
   }
   applyFilter(filterParams:FilterObject[]) {
     const filteredDoctors = this.dummyDoctors.filter(doctor => {
-      // Check if the doctor matches all selected filter parameters
       for (const filterParam of filterParams) {
-        const doctorFieldValue = doctor[filterParam.field];
+        const doctorFieldValue = doctor[filterParam.field as keyof  Doctor ];
         const filterParamValues = filterParam.values;
-
-        // Check if the field is included in the doctor object
+        console.log(doctorFieldValue,"========",filterParamValues)
         if (doctorFieldValue === undefined) {
           return false;
         }
-
-        // Check if the field value matches the filter parameter
-        const isMatch = filterParam.inclusive
-          ? filterParamValues.includes(doctorFieldValue)
-          : filterParamValues.some(filterValue => filterValue === doctorFieldValue);
-
+        let isMatch = false;
+        
+        if(filterParam.inclusive){
+            Array.from(doctorFieldValue as any[]).forEach(val=>{
+              console.log(val)
+              isMatch = isMatch || filterParamValues.includes(val.specializationName)
+            })
+        }else{
+          isMatch = filterParamValues.some(filterValue => filterValue === doctorFieldValue)
+        }
+        console.log(isMatch)
         if (!isMatch) {
-          return false; // If the doctor doesn't match, return false and continue with the next filter parameter
+          return false;
         }
       }
 
@@ -218,7 +228,6 @@ export class DoctorsComponent implements OnInit{
   }
   filterByFields(filterParam:FilterObject){
 
-    // this.filterDoctors = this.filterDoctors
 
   }
 }

@@ -32,16 +32,14 @@ ngOnInit(): void {
     })
 }
 handleSelection(field:string,value:string){
-// this.filterObject.emit(this.selectedValues as FilterObject[])
 const filterObj = this.selectedValues.find(obj => obj.field === field);
+console.log(filterObj)
 const valueIndex = filterObj?.values.indexOf(value);
-
+console.log(filterObj?.values.indexOf(value))
 if (valueIndex !== -1 && filterObj && valueIndex!==undefined) {
-
   filterObj?.values.splice(valueIndex, 1);
 
 } else {
-  // value was checked
   filterObj?.values.push(value);
 
 }
