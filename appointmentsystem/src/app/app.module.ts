@@ -23,6 +23,7 @@ import { FilterComponentComponent } from './components/shared/filter-component/f
 import { AppointmentCardComponent } from './components/hospital/appointment-card/appointment-card.component';
 import { BarChartComponent } from './components/shared/bar-chart/bar-chart.component';
 import { PieChartComponent } from './components/shared/pie-chart/pie-chart.component';
+import { DynamicFormComponent } from './components/shared/dynamic-form/dynamic-form.component';
 
 
 @NgModule({
