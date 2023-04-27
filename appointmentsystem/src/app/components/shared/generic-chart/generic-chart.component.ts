@@ -11,4 +11,6 @@ export class GenricChartComponent  {
 
   @Input() chartType!:ChartType
   @Input() data!:ChartData<ChartType,number[],string|string[]>
+  @Input() height:number = 75
+  @Input() width:number = 75
 }

@@ -1,9 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import {
-  Chart,
   ChartType,
-  ChartDataset,
-  ChartOptions,
   ChartData
 } from 'chart.js'
 
@@ -17,13 +14,8 @@ export class DashboardComponent implements OnInit {
   public chartType: ChartType = 'line'
   public labels: string[] = ['BJP', 'AAP', 'INC']
   // public data:number[] = [156,4,19]
-  public data: ChartData<ChartType, number[], string | string[]> = {
-    labels: this.labels,
-    datasets: [
-      {
-        data: [156, 19, 40]
-      }
-    ]
+  public data: ChartData<ChartType, number[], string | string[]> ={
+    datasets:[]
   }
   generateChart () {
     throw new Error('Method not implemented.')
@@ -34,24 +26,39 @@ export class DashboardComponent implements OnInit {
     switch (value) {
       case 'dailyAppointmentCount':
         this.chartType = 'line'
-        const data: { [key: string]: number } = this.dummyData.reduce(
+        let data: { [key: string]: number } = this.dummyData.reduce(
           (accumulator, value) => {
-            // accumulator[value.appointmentDate] = (++accumulator[value.appointmentDate]|| 0) + 1;
-            // console.log(prev)
             const appointmentDate = value.appointmentDate as keyof typeof accumulator
             accumulator[appointmentDate] =
               (accumulator[appointmentDate] || 0) + 1
-            return accumulator
-          },
+              return accumulator
+            },
           {} as { [key: string]: number }
-        )
+          )
         this.data.labels = Object.keys(data)
+        console.log(this.data.labels)
         this.data.datasets.push( {data:Object.values(data)})
         this.showChart = true
         break
       case 'appointmentByDepartment':
         break
       case 'appointmentShareByDoctor':
+        this.chartType = 'pie'
+        this.data.datasets.splice(0,this.data.datasets.length)
+         let doctorData = this.dummyData.reduce(
+          (accumulator, value) => {
+            const doctor = value.doctor.doctorFirstName as keyof typeof accumulator
+            console.log(doctor)
+            accumulator[doctor] =
+                (accumulator[doctor] || 0) + 1
+              return accumulator
+            },
+          {} as { [key: string]: number }
+          )
+        this.data.labels = Object.keys(doctorData)
+        console.log(this.data.labels)
+        this.data.datasets.push( {data:Object.values(doctorData)})
+        this.showChart = true
         break
       default:
         break
@@ -109,7 +116,7 @@ export class DashboardComponent implements OnInit {
         doctorContactNo: '555-5678'
       },
       diseaseId: null,
-      appointmentDate: '2023-04-27',
+      appointmentDate: '2023-04-25',
       appointmentTime: '10:00 AM',
       appointmentStatus: 'scheduled'
     },
@@ -127,7 +134,7 @@ export class DashboardComponent implements OnInit {
         doctorContactNo: '555-1234'
       },
       diseaseId: null,
-      appointmentDate: '2023-04-24',
+      appointmentDate: '2023-04-25',
       appointmentTime: '10:00 AM',
       appointmentStatus: 'cancelled'
     },
@@ -158,8 +165,8 @@ export class DashboardComponent implements OnInit {
       },
       diagnosis: null,
       doctor: {
-        doctorId: 'D001',
-        doctorFirstName: 'John',
+        doctorId: 'D004',
+        doctorFirstName: 'Rohit',
         doctorContactNo: '555-1234'
       },
       diseaseId: null,

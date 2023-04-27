@@ -38,8 +38,8 @@ aside {
 /* Main content styles */
 section {
   margin-top: var(--header-height); /* Add space for the header */
-  /* position: relative; */
-  /* top: var(--header-height); */
+  /* flex:1; */
+  padding: 50px;
   margin-left: 280px; /* Adjust to account for sidebar width and margin */
   margin-right: 20px; /* Add margin to separate main content and sidebar */
 }
