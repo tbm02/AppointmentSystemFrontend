@@ -18,13 +18,8 @@ import { DoctorRoutingModule } from './modules/doctor/doctor-routing.module';
 import { HospitalRoutingModule } from './modules/hospital/hospital-routing.module';
 import { UserRoutingModule } from './modules/user/user-routing.module';
 import { RouterModule } from '@angular/router';
-import { DoctorCardComponent } from './components/hospital/doctor-card/doctor-card.component';
-import { FilterComponentComponent } from './components/shared/filter-component/filter-component.component';
-import { AppointmentCardComponent } from './components/hospital/appointment-card/appointment-card.component';
+import { LineChartComponent } from './components/shared/line-chart/line-chart.component';
 import { BarChartComponent } from './components/shared/bar-chart/bar-chart.component';
-import { PieChartComponent } from './components/shared/pie-chart/pie-chart.component';
-import { DynamicFormComponent } from './components/shared/dynamic-form/dynamic-form.component';
-
 
 @NgModule({
   declarations: [

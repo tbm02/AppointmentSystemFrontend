@@ -11,8 +11,9 @@ import { DashboardComponent } from 'src/app/pages/hospital/dashboard/dashboard.c
 import { AppointmentsComponent } from 'src/app/pages/hospital/appointments/appointments.component';
 import { DoctorsComponent } from 'src/app/pages/hospital/doctors/doctors.component';
 import { DoctorCardComponent } from 'src/app/components/hospital/doctor-card/doctor-card.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppointmentCardComponent } from 'src/app/components/hospital/appointment-card/appointment-card.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 
@@ -32,6 +33,8 @@ import { AppointmentCardComponent } from 'src/app/components/hospital/appointmen
     HospitalRoutingModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
+    NgChartsModule
     // AppModule
   ]
 })

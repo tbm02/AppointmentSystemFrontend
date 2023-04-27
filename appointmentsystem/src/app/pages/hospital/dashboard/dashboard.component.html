@@ -1,6 +1,31 @@
 <div class="page-container">
-    <div class="hospital-information-container"
-    >
-    <app-shared-dynamic-form></app-shared-dynamic-form>
-</div>
+    <div class="hospital-information">
+        <h2>Hospital Details</h2>
+        <p>Hospital Name : </p>
+        <p>Hospital GHID NO: </p>
+        <p>Hospital Contact No: </p>
+        <p>Hospital Email No: </p>
+        <p>Hospital Address: </p>
+    </div>
+    <div class="stastic-container">
+        <p>No of appointments booked: </p>
+        <p>No Of completed appointments: </p>
+        <p>No Of Pending Appointments: </p>
+        <p>No of Cancelled Appointments: </p>
+        
+    </div>
+    <div class="charts-container">
+        <p>This section Should contain the charts</p>
+        <div class="chart-header">
+            <span>Chart Type:</span>
+            <select [(ngModel)]="chartType" (change)="handleChange(chartType)">
+              <option value="dailyAppointmentCount">Weekly Appointment Details</option>
+              <option value="appointmentByDepartment">Appointments By Specialization</option>
+
+              <option value="appointmentShareByDoctor">Appointment Share by Each Doctor</option>
+            </select>
+          </div>
+          
+          <app-shared-generic-chart *ngIf="showChart" [chartType]="chartType" [data]="data"></app-shared-generic-chart>
+    </div>
 </div>

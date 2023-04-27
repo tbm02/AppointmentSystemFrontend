@@ -1,5 +1,8 @@
+import { Injectable } from "@angular/core";
 import { FilterObject } from "src/app/utils/models/filterobject.model";
 
+
+@Injectable({providedIn:"root"})
 export class FilterService{
     
    static applyFilter<T>(data:any[],filterParams:FilterObject[]):any[]{
