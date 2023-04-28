@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core'
-import { FilterService } from 'src/app/services/user/shared/filter.service'
+import { Component, Input, OnInit } from '@angular/core'
+import { HospitalHttpService } from 'src/app/services/hospital/hospital.http.service'
+import { FilterService } from 'src/app/services/shared/filter.service'
 import { Appointment } from 'src/app/utils/dto/appointment.model'
 import { FilterObject } from 'src/app/utils/models/filterobject.model'
 
@@ -8,87 +9,39 @@ import { FilterObject } from 'src/app/utils/models/filterobject.model'
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css']
 })
-export class AppointmentsComponent {
+export class AppointmentsComponent implements OnInit{
 
   @Input()searchQuery!:string
+  appointments:Appointment[] = []
+  filteredAppointments:Appointment[] = []
   filterfieldValues: FilterObject[] = [
     {
-      field: 'appointmentStatus',
+      field: 'status',
       values: ['Pending', 'Completed', 'Cancelled'],
       inclusive: false,
     }
   ]
+  constructor(private hospitalHttpService:HospitalHttpService){}
+  ngOnInit(): void {
+    this.filteredAppointments =this.appointments
+    this.hospitalHttpService.getAllAppointmentsForHospital().subscribe({
+      next:(res)=>{
+        console.log(res)
+        this.appointments = res.data
+        this.filteredAppointments = this.appointments
 
-  dummyAppointments: Appointment[] = [
-    {
-      appointmentId: '1',
-      appointmentDate: '2022-10-12',
-      appointmentTime: '16:00:00',
-      doctor: {
-        doctorId: 1,
-        doctorFirstName: 'Virat Kohli',
-        doctorContactNo: '9933828992'
-      },
-      patient: {
-        patientId: 2,
-        pateintContactNo: '9949499022',
-        patientFirstName: 'Aaja'
-      },
-      appointmentStatus: 'Pending'
-    },
-    {
-      appointmentId: '1',
-      appointmentDate: '2022-10-12',
-      appointmentTime: '16:00:00',
-      doctor: {
-        doctorId: 1,
-        doctorFirstName: 'Virat Kohli',
-        doctorContactNo: '9933828992'
-      },
-      patient: {
-        patientId: 2,
-        pateintContactNo: '9949499022',
-        patientFirstName: 'Aaja'
-      },
-      appointmentStatus: 'Pending'
-    },
-    {
-      appointmentId: '5',
-      appointmentDate: '2022-10-11',
-      appointmentTime: '14:00:00',
-      doctor: {
-        doctorId: 1,
-        doctorFirstName: 'Virat Kohli',
-        doctorContactNo: '9933828992'
-      },
-      patient: {
-        patientId: 2,
-        pateintContactNo: '9949499022',
-        patientFirstName: 'Raja'
-      },
-      appointmentStatus: 'Completed'
-    },
-    {
-      appointmentId: '3',
-      appointmentDate: '2022-10-12',
-      appointmentTime: '16:00:00',
-      doctor: {
-        doctorId: 1,
-        doctorFirstName: 'Virat ',
-        doctorContactNo: '9933828992'
-      },
-      patient: {
-        patientId: 2,
-        pateintContactNo: '9949499022',
-        patientFirstName: 'Aaja'
-      },
-      appointmentStatus: 'Pending'
-    }
-  ]
-  filteredAppointments:Appointment[]=this.dummyAppointments
+      },error:(err)=>{
+        console.log(err,"Error")
+
+      },complete:()=>{
+
+      }
+    })
+  }
+  
   applyFilter (filterParams: FilterObject[]) {
     console.log("Event Occured",filterParams)
-    this.filteredAppointments = FilterService.applyFilter<Appointment>(this.dummyAppointments,filterParams)
+    this.filteredAppointments = FilterService.applyFilter<Appointment>(this.appointments,filterParams)
     
     
     }

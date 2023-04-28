@@ -1,9 +1,10 @@
 <div class="doctor-list-page">
   <button class="add-doctor-button add-doctor-button-primary">Add Doctor</button>
   <div class="doctor-list-filters">
-    <input type="text" placeholder="Search by doctor name" [(ngModel)]="searchQuery">
+    <input type="text" placeholder="Search by doctor name" [(ngModel)]="searchQuery" (input)="searchDoctorsByName(searchQuery)">
     <app-shared-filter-component [fieldValues]="filterfieldValues" (filterObject)="applyFilter($event)"></app-shared-filter-component>
   </div>
+  <button (click)="addNewDoctor()">Add New Doctor</button>
   <div class="doctor-list">
     <app-hospital-doctor-card *ngFor="let doctor of filteredDoctors" [doctor]="doctor"></app-hospital-doctor-card>
     <p *ngIf="filteredDoctors.length === 0">No doctors found.</p>

@@ -3,6 +3,7 @@ import {
   ChartType,
   ChartData
 } from 'chart.js'
+import { FormField } from 'src/app/utils/models/dynamicformfield.model'
 
 @Component({
   selector: 'app-hospital-dashboard',
@@ -175,4 +176,26 @@ export class DashboardComponent implements OnInit {
       appointmentStatus: 'scheduled'
     }
   ]
+
+  formDetails:{title:string,fields:FormField[]} = {
+    title:"Hospital Form",
+    fields:[
+      {
+        name: 'firstName',
+        label: 'First Name',
+        type: 'text',
+
+      },
+      {
+        name: 'lastName',
+        label: 'Last Name',
+        type: 'text',
+      },
+      {
+        name: 'email',
+        label: 'Email',
+        type: 'email',
+      }
+    ]
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormField } from 'src/app/utils/models/dynamicformfield.model';
 import { FormGroupFields } from 'src/app/utils/models/formgroupfields.model';
 
 @Component({
@@ -9,26 +10,19 @@ import { FormGroupFields } from 'src/app/utils/models/formgroupfields.model';
 })
 export class DynamicFormComponent implements OnInit{
 
-  dynamicFormGroup!:FormGroup
-  @Input () model!:{}
+  form!:FormGroup
+  @Input() formData!: {
+    title:string,
+    fields:FormField[]
+  };
 
-  fields:string[]=[]
+  constructor(private formBuilder: FormBuilder) {}
+  ngOnInit(){
+    this.form = this.formBuilder.group({});
+    this.formData.fields.forEach(field=>{
+      this.form.addControl(field.name, this.formBuilder.control('', field.validators));
+    })
+  }
 
-  ngOnInit(): void {
-      this.buildForm()
-  }
-  buildForm(){
-    const formGroupFields = this.getFormControlFields();
-    this.dynamicFormGroup = new FormGroup(formGroupFields);
-  }
-  getFormControlFields(){
-    const formGroupFields:FormGroupFields = {}
-
-    for(let field of Object.keys(this.model)){
-      formGroupFields[field] = new FormControl("")
-      this.fields.push(field)
-    }
-    return formGroupFields;
-  }
 }
 

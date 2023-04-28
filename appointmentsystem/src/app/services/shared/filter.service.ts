@@ -18,8 +18,14 @@ export class FilterService{
       
               if (filterParam.inclusive) {
                 let localMatched:boolean = false ;
+                // console.log(objectSearchValue,"HERE")
                 for (let value of objectSearchValue as any[]) {
-                  const fieldValue = value[filterParam.filterKey as keyof Object]
+                  let fieldValue;
+                  if(filterParam.filterKey){
+                   fieldValue = value[filterParam.filterKey as keyof Object]
+                  }else{
+                     fieldValue = value
+                  }
                   if (filterValues.includes(fieldValue)) {
                     localMatched = true
                     break

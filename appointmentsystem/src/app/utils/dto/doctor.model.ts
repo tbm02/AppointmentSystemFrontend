@@ -18,6 +18,6 @@ export interface Doctor{
   endTime:string,
   slotDuration:string,
   bufferTime:string,
-  specialization:Specialization[],
+  specializations:string[],
   imageLink:string
 }

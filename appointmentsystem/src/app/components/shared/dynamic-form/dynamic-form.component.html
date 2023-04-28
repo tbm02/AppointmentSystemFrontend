@@ -1,1 +1,6 @@
-<p>Dynamic Form Component </p>
+<form [formGroup]="form">
+    <div class="form-field" *ngFor="let field of formData.fields">
+        <app-shared-dynamic-field-component [field]="field"></app-shared-dynamic-field-component>
+      
+      </div>
+  </form>

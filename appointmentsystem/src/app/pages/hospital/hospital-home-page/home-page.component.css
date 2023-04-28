@@ -15,7 +15,7 @@ header {
   width: 100vw;
   background-color: #41a69c;
   color: #fff;
-  position: sticky;
+  position: fixed;
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px; /* Add margin to separate header and sidebar */
@@ -38,8 +38,9 @@ aside {
 /* Main content styles */
 section {
   margin-top: var(--header-height); /* Add space for the header */
-  /* flex:1; */
   padding: 50px;
+  /* position: fixed;
+  top: 50px; */
   margin-left: 280px; /* Adjust to account for sidebar width and margin */
   margin-right: 20px; /* Add margin to separate main content and sidebar */
 }
@@ -58,3 +59,5 @@ footer {
   width: 100%;
   margin-top: 20px; /* Add margin to separate footer and main content */
 }
+
+

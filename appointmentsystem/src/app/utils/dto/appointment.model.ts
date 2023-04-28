@@ -5,17 +5,19 @@ export interface Appointment{
   appointmentId:string,
   patient:{
     patientId:string|number,
-    patientFirstName:string,
-    pateintContactNo:string
+    firstName:string,
+    lastName:string,
+    contactNo:string
   },
   diagnosis?:Diagnosis,
   doctor:{
     doctorId:string|number,
-    doctorFirstName:string,
-    doctorContactNo:string
+    firstName:string,
+    lastName:string,
+    contactNo:string
   },
   diseaseId?:string;
   appointmentDate:string,
   appointmentTime:string,
-  appointmentStatus:string
+  status:string
 }

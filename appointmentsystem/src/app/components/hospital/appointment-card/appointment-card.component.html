@@ -1,16 +1,16 @@
 <div class="appointment-card">
     <div class="card-header">
-      <h2 class="doctor-name">{{appointment.doctor.doctorFirstName}}</h2>
-      <p class="appointment-date">{{appointment.appointmentDate}}</p>
-      <p class="appointment-time">{{appointment.appointmentTime}}</p>
+      <h2 class="doctor-name">Doctor Name : {{"Dr."+appointment.doctor.firstName +" "+appointment.doctor.lastName}}</h2>
+      <p class="appointment-date">Appointment Date :{{appointment.appointmentDate}}</p>
+      <p class="appointment-time">Appointment Time :{{appointment.appointmentTime}}</p>
     </div>
     <div class="card-body">
       <div class="patient-details">
-        <h3 class="patient-name">{{appointment.patient.patientFirstName}}</h3>
-        <p class="patient-contact">{{appointment.patient.pateintContactNo}}</p>
+        <h3 class="patient-name">PatientName: {{appointment.patient.firstName+" "+appointment.patient.lastName}}</h3>
+        <p class="patient-contact">PatientContactNo: {{appointment.patient.contactNo}}</p>
       </div>
       <div class="appointment-details">
-        <p class="appointment-status">{{appointment.appointmentStatus}}</p>
+        <p class="appointment-status">Status: {{appointment.status}}</p>
         <button class="details-button">View Details</button>
       </div>
     </div>

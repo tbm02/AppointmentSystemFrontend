@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { FilterService } from 'src/app/services/user/shared/filter.service'
+import { debounceTime, Subject, Subscription } from 'rxjs'
+import { HospitalHttpService } from 'src/app/services/hospital/hospital.http.service'
+import { FilterService } from 'src/app/services/shared/filter.service'
 import { Doctor } from 'src/app/utils/dto/doctor.model'
 import { Specialization } from 'src/app/utils/dto/specialization.model'
 import { FilterObject } from 'src/app/utils/models/filterobject.model'
@@ -11,6 +13,8 @@ import { FilterObject } from 'src/app/utils/models/filterobject.model'
 })
 export class DoctorsComponent implements OnInit {
   searchQuery!: string
+  private searchQuery$ = new Subject<string>()
+
   selectedSpecialization!: Specialization
   specializations: Specialization[] = [
     { specializationId: '1', specializationName: 'Neurologist' },
@@ -19,167 +23,78 @@ export class DoctorsComponent implements OnInit {
   ]
   filterfieldValues: FilterObject[] = [
     {
-      field: 'specialization',
-      values: ['Neurologist', 'Orthopadic', 'Gynac'],
-      inclusive: true,
-      filterKey: 'specializationName'
+      field: 'specializations',
+      values: [],
+      inclusive: true
     },
-    { field: 'gender', values: ['male', 'female'], inclusive: false }
+    { field: 'gender', values: ['Male', 'Female'], inclusive: false }
   ]
+  doctorData: Doctor[] = []
+  subscription!: Subscription
 
-  
-  dummyDoctors: Doctor[] = [
-    {
-      user: {
-        contactNo: '9494902102',
-        email: 'virat@hospital.com',
-        password: '2928',
-        roleId: '2',
-        userId: '1'
-      },
-      firstName: 'Jane',
-      lastName: 'Doe',
-      hospital: {
-        hospitalId: '1',
-        hospitalName: 'ABC Hospital'
-      },
-      gender: 'male',
-      dob: new Date('1985-03-15'),
-      recessStartTime: '12:00',
-      recessEndTime: '13:00',
-      startTime: '09:00',
-      endTime: '17:00',
-      slotDuration: '30',
-      bufferTime: '10',
-      specialization: [
-        { specializationId: '1', specializationName: 'Neurologist' }
-      ],
-
-      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
-    },
-    {
-      user: {
-        contactNo: '9494902102',
-        email: 'virat@hospital.com',
-        password: '2928',
-        roleId: '2',
-        userId: '1'
-      },
-      firstName: 'Jane',
-      lastName: 'Doe',
-      hospital: {
-        hospitalId: '1',
-        hospitalName: 'ABC Hospital'
-      },
-      gender: 'male',
-      dob: new Date('1985-03-15'),
-      recessStartTime: '12:00',
-      recessEndTime: '13:00',
-      startTime: '09:00',
-      endTime: '17:00',
-      slotDuration: '30',
-      bufferTime: '10',
-      specialization: [{ specializationId: '3', specializationName: 'Gynac' }],
-
-      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
-    },
-    {
-      user: {
-        contactNo: '9494902102',
-        email: 'virat@hospital.com',
-        password: '2928',
-        roleId: '2',
-        userId: '1'
-      },
-      firstName: 'King Kohli',
-      lastName: 'Doe',
-      hospital: {
-        hospitalId: '1',
-        hospitalName: 'ABC Hospital'
-      },
-      gender: 'male',
-      dob: new Date('1985-03-15'),
-      recessStartTime: '12:00',
-      recessEndTime: '13:00',
-      startTime: '09:00',
-      endTime: '17:00',
-      slotDuration: '30',
-      bufferTime: '10',
-      specialization: [
-        { specializationId: '1', specializationName: 'Neurologist' },
-        { specializationId: '3', specializationName: 'Gynac' }
-      ],
-
-      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
-    },
-    {
-      user: {
-        contactNo: '9494902102',
-        email: 'virat@hospital.com',
-        password: '2928',
-        roleId: '2',
-        userId: '1'
-      },
-      firstName: 'Jane',
-      lastName: 'Doe',
-      hospital: {
-        hospitalId: '1',
-        hospitalName: 'ABC Hospital'
-      },
-      gender: 'male',
-      dob: new Date('1985-03-15'),
-      recessStartTime: '12:00',
-      recessEndTime: '13:00',
-      startTime: '09:00',
-      endTime: '17:00',
-      slotDuration: '30',
-      bufferTime: '10',
-      specialization: [
-        { specializationId: '1', specializationName: 'Pediatrics' }
-      ],
-
-      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
-    },
-    {
-      user: {
-        contactNo: '9494902102',
-        email: 'virat@hospital.com',
-        password: '2928',
-        roleId: '2',
-        userId: '1'
-      },
-      firstName: 'Jane',
-      lastName: 'Doe',
-      hospital: {
-        hospitalId: '1',
-        hospitalName: 'ABC Hospital'
-      },
-      gender: 'female',
-      dob: new Date('1985-03-15'),
-      recessStartTime: '12:00',
-      recessEndTime: '13:00',
-      startTime: '09:00',
-      endTime: '17:00',
-      slotDuration: '30',
-      bufferTime: '10',
-      specialization: [
-        { specializationId: '3', specializationName: 'Gynac' }
-      ],
-
-      imageLink: 'https://randomuser.me/api/portraits/men/1.jpg'
-    }
-  ]
-  filteredDoctors: Doctor[] = this.dummyDoctors
+  constructor (private hospitalHttpService: HospitalHttpService) {}
+  filteredDoctors: Doctor[] = this.doctorData
   ngOnInit (): void {
-      }
+    this.subscription = this.hospitalHttpService
+      .getAllDoctorsForHospital()
+      .subscribe({
+        next: data => {
+          console.log('Here We Have recieved data', data)
+          this.doctorData = data.data
+          data.data.forEach(doctor => {
+            doctor.specializations.forEach(spcialization => {
+              if (!this.filterfieldValues[0].values.includes(spcialization)) {
+                this.filterfieldValues[0].values.push(spcialization)
+              }
+            })
+          })
+          this.filteredDoctors = this.doctorData
+          console.log(this.doctorData)
+        },
+        error: err => {
+          console.log('Error Occured', err)
+        },
+        complete () {
+          console.log('COmpleted')
+        }
+      })
+    // this.subscription().
+
+    // this.searchQuery$.pipe(debounceTime(400)).subscribe((searchQuery)=>{this.searchDoctorsByName(searchQuery)})
+  }
   applyFilter (filterParams: FilterObject[]) {
-this.filteredDoctors = FilterService.applyFilter<Doctor>(this.dummyDoctors,filterParams)
-
-
-}
+    console.log(filterParams)
+    this.filteredDoctors = FilterService.applyFilter<Doctor>(
+      this.doctorData,
+      filterParams
+    )
+  }
   filterByFields (filterParam: FilterObject) {}
 
-  addDoctor(){
+  addDoctor () {}
 
+  searchDoctorsByName (searchQuery: string) {
+    // console.log("Attemping to Searcj",searchQuery)
+    if (searchQuery.length <= 1) {
+      this.filteredDoctors = this.doctorData
+    }
+    else if(searchQuery.length > 1 && this.filteredDoctors.length === 0){
+      console.log("Will Save performance")
+    }
+    else {
+      console.log("Searching")
+      const lowerCaseSearchQuery = searchQuery.toLowerCase()
+      this.filteredDoctors = this.doctorData.filter(
+        doctor =>
+          doctor.firstName.toLowerCase().includes(lowerCaseSearchQuery) ||
+          doctor.lastName.toLowerCase().includes(lowerCaseSearchQuery) ||
+          doctor.specializations.some(specialization =>
+            specialization.toLowerCase().includes(lowerCaseSearchQuery)
+          )
+      )
+    }
+  }
+  addNewDoctor(){
+    
   }
 }
