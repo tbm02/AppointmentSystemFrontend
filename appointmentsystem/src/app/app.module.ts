@@ -20,12 +20,19 @@ import { UserRoutingModule } from './modules/user/user-routing.module';
 import { RouterModule } from '@angular/router';
 import { LineChartComponent } from './components/shared/line-chart/line-chart.component';
 import { BarChartComponent } from './components/shared/bar-chart/bar-chart.component';
+import { ModalComponent } from './components/shared/modal/modal.component';
+import { PatientsComponent } from './pages/user/patients/patients.component';
+import { ProfileComponent } from './pages/user/profile/profile.component';
+import { AppointmentsComponent } from './pages/user/appointments/appointments.component';
+import { DashboardComponent } from './pages/user/dashboard/dashboard.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
 
     LandingPageComponent,
+    
      
 
 
@@ -40,7 +47,8 @@ import { BarChartComponent } from './components/shared/bar-chart/bar-chart.compo
     DoctorRoutingModule,
     HospitalRoutingModule,
     SharedModule,
-    UserRoutingModule
+    UserRoutingModule,
+    NgbModule
     // UserModule
 
   ],

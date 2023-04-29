@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DynamicFormComponent } from 'src/app/components/shared/dynamic-form/dynamic-form.component';
 import { User } from 'src/app/utils/dto/user.model';
+import { FormField } from 'src/app/utils/models/dynamicformfield.model';
 import { UserSignUpService } from '../../../services/user/user-sign-up.service';
 
 @Component({
@@ -9,6 +11,61 @@ import { UserSignUpService } from '../../../services/user/user-sign-up.service';
   styleUrls: ['./user-sign-up.component.css']
 })
 export class UserSignUpComponent implements OnInit {
+  @ViewChild("form") form!:DynamicFormComponent
+  formDetails:{
+    title:string,
+    fields:FormField[]
+  }={
+    title:"User Sign Up Form",
+    fields:[
+    {
+      name:"firstName",
+      label:"First Name",
+      type:"text",
+      validators:[
+        Validators.required,
+        Validators.minLength(2)
+      ]
+    },
+    {
+      name:"lastName",
+      label:"Last Name",
+      type:"text",
+      validators:[
+        Validators.required,
+        Validators.minLength(2)
+      ]
+    },
+    {
+      name:"email",
+      label:"Email Id",
+      type:"email",
+      validators:[
+        Validators.required,
+        Validators.minLength(2)
+      ]
+    }
+    ,
+    {
+      name:"password",
+      label:"Password",
+      type:"password",
+      validators:[
+        Validators.required,
+        Validators.minLength(2)
+      ]
+    },
+    {
+      name:"address",
+      label:"Address",
+      type:"textarea",
+      validators:[
+        Validators.required,
+        Validators.minLength(2)
+      ]
+    }
+      ]
+  }
 user!:User
 isLoading:boolean = false
 hasError = false
@@ -25,17 +82,19 @@ userFormGroup = new FormGroup({
 });
 
 submit(e:Event){
-  console.log("Hii I am called",this.userFormGroup.value);
-  this.isLoading = true
-  this.userSignUpService.signUpUser("http://localhost:8080/api/person",this.userFormGroup.value).subscribe((data)=>{
-    console.log("Succesfully Signedup user",data)
-    this.isLoading = false
-  },(err)=>{
-    console.log("Error Occured",err)
-    // this.isLoading = false
-    this.hasError=true
-    this.errors.push(...err.error.errorObj)
-  })
+
+  console.log(this.form.formData);
+  // console.log("Hii I am called",this.userFormGroup.value);
+  // this.isLoading = true
+  // this.userSignUpService.signUpUser("http://localhost:8080/api/person",this.userFormGroup.value).subscribe((data)=>{
+  //   console.log("Succesfully Signedup user",data)
+  //   this.isLoading = false
+  // },(err)=>{
+  //   console.log("Error Occured",err)
+  //   // this.isLoading = false
+  //   this.hasError=true
+  //   this.errors.push(...err.error.errorObj)
+  // })
 }
 constructor(private userSignUpService:UserSignUpService){
 

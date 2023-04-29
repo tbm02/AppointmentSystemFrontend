@@ -2,9 +2,11 @@
   <div class="sidebar-container">
     <app-shared-sideboard></app-shared-sideboard>
   </div>
-
+  
   <div class="form-container">
-    <form [formGroup]="userFormGroup" class="form">
+    <app-shared-dynamic-form #form [formData]="formDetails"></app-shared-dynamic-form>
+    <button (click)="submit($event)"></button>
+    <!-- <form [formGroup]="userFormGroup" class="form">
       <div class="form-element">
 
         <label class="form-label">Name</label>
@@ -64,7 +66,7 @@
       <button type="submit" (click)="submit($event)" class="btn btn-primary">
         Submit
       </button>
-    </form>
+    </form> -->
     <a routerLink="/user/login">Already Have An Account ? Continue with Login</a>
   </div>
 </div>

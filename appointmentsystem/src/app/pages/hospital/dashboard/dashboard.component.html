@@ -7,7 +7,6 @@
         <p>Hospital Email No: </p>
         <p>Hospital Address: </p>
     </div>
-    <app-shared-dynamic-form [formData]="formDetails"></app-shared-dynamic-form>
     <div class="stastic-container">
         <p>No of appointments booked: </p>
         <p>No Of completed appointments: </p>
@@ -26,7 +25,6 @@
               <option value="appointmentShareByDoctor">Appointment Share by Each Doctor</option>
             </select>
           </div>
-          
           <app-shared-generic-chart *ngIf="showChart" [chartType]="chartType" [data]="data"></app-shared-generic-chart>
     </div>
 </div>

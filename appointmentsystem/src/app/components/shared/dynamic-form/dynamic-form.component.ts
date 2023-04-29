@@ -20,6 +20,7 @@ export class DynamicFormComponent implements OnInit{
   ngOnInit(){
     this.form = this.formBuilder.group({});
     this.formData.fields.forEach(field=>{
+      console.log("Adding a new Field")
       this.form.addControl(field.name, this.formBuilder.control('', field.validators));
     })
   }

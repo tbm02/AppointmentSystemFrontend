@@ -1,2 +1,19 @@
-
-<p>user-home-page works!</p>
+<header>
+    <app-shared-header role="Hospital"></app-shared-header>
+  </header>
+  
+  <main>
+    <aside>
+      <app-shared-side-bar role="SystemUser"></app-shared-side-bar>
+    </aside>
+  
+    <section>
+      <!-- Your main content here -->
+      <router-outlet ></router-outlet>
+    </section>
+  </main>
+  
+  <footer>
+    <app-shared-footer></app-shared-footer>
+  </footer>
+  

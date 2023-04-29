@@ -68,6 +68,49 @@ export class RouterLinks {
       ]
     },
     {
+      role: 'SystemUser',
+      links: [
+        {
+          label: 'Home',
+          link: '#',
+          isdropdown: false
+        },
+        {
+          label: 'Patients',
+          link: 'patient',
+          isdropdown: false
+        },
+        {
+          label: 'Hospitals',
+          link: 'hospital',
+          isdropdown: false
+        },
+        {
+          label: 'Appointments',
+          link: 'appointment',
+          isdropdown: false
+        },
+        {
+          label: 'Profile',
+          link: 'profile',
+          isdropdown: false
+        },
+        {
+          label: 'DashBoard',
+          link: 'dashboard',
+          isdropdown: false
+        },
+        {
+          label: 'Log Out',
+          link: 'logout',
+          isdropdown: false
+        },
+        
+      ],
+      
+    },
+
+    {
       role: 'UnAuthorized',
       links: [
         {

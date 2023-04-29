@@ -14,6 +14,7 @@ import { DynamicFormComponent } from '../components/shared/dynamic-form/dynamic-
 import { DynamicFieldComponentComponent } from '../components/shared/dynamic-field-component/dynamic-field-component.component'
 import { LineChartComponent } from '../components/shared/line-chart/line-chart.component'
 import { BarChartComponent } from '../components/shared/bar-chart/bar-chart.component'
+import { ModalComponent } from '../components/shared/modal/modal.component'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { BarChartComponent } from '../components/shared/bar-chart/bar-chart.comp
     DynamicFieldComponentComponent,
     LineChartComponent,
     BarChartComponent,
-
+    ModalComponent,
     SideBarComponent
   ],
   imports: [
@@ -48,7 +49,7 @@ import { BarChartComponent } from '../components/shared/bar-chart/bar-chart.comp
     DynamicFieldComponentComponent,
     LineChartComponent,
     BarChartComponent,
-
+    ModalComponent,
     SideBarComponent
   ]
 })

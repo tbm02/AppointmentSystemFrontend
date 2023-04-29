@@ -1,3 +1,10 @@
+<!-- <form> -->
 <label class="form-label" for="{{ field.name }}">{{ field.label }}</label>
-      <input class="form-input" type="{{ field.type }}" id="{{ field.name }}" formControlName="{{ field.name }}" />
-      
+<input class="form-input" [type]="field.type" [id]="field.name" />
+<!-- </form> -->
+<!-- <input
+  class="form-input"
+  type={{ field.type }}
+  id={{ field.name }}
+  formControlName={{ field.name }}
+/> -->

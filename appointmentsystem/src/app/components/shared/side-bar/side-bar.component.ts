@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { RouterLinks } from 'src/app/utils/constants/routerlink.constant';
 
 @Component({
   selector: 'app-shared-side-bar',
@@ -109,6 +110,6 @@ export class SideBarComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('Hii I am reinitialized');
-    this.labelAndLinks = this.RoleLinks.filter(collection=>collection.role===this.role)[0].links
+    this.labelAndLinks = RouterLinks.RoleLinks.filter(collection=>collection.role===this.role)[0].links
   }
 }
