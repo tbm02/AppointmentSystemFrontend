@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormField } from 'src/app/utils/models/dynamicformfield.model';
 import { FormGroupFields } from 'src/app/utils/models/formgroupfields.model';
@@ -15,6 +15,7 @@ export class DynamicFormComponent implements OnInit{
     title:string,
     fields:FormField[]
   };
+  @Output()formDetails = new EventEmitter<FormGroup>();
 
   constructor(private formBuilder: FormBuilder) {}
   ngOnInit(){
@@ -23,6 +24,10 @@ export class DynamicFormComponent implements OnInit{
       console.log("Adding a new Field")
       this.form.addControl(field.name, this.formBuilder.control('', field.validators));
     })
+  }
+
+  getFormData(){
+    this.formDetails.emit();
   }
 
 }

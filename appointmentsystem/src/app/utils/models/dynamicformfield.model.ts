@@ -4,7 +4,7 @@ export interface FormField {
     name: string;
     label: string;
     type: string; // new property
-    value?: any;
+    value: any;
     validators?: ValidatorFn[];
   }
   

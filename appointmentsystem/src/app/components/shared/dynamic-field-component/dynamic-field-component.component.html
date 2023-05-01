@@ -1,6 +1,8 @@
 <!-- <form> -->
 <label class="form-label" for="{{ field.name }}">{{ field.label }}</label>
-<input class="form-input" [type]="field.type" [id]="field.name" />
+<input class="form-input" [type]="field.type" [id]="field.name" 
+[(value)]="field.value"
+/>
 <!-- </form> -->
 <!-- <input
   class="form-input"

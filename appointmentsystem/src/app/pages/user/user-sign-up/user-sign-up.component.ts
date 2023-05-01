@@ -22,6 +22,7 @@ export class UserSignUpComponent implements OnInit {
       name:"firstName",
       label:"First Name",
       type:"text",
+      value:"",
       validators:[
         Validators.required,
         Validators.minLength(2)
@@ -31,6 +32,7 @@ export class UserSignUpComponent implements OnInit {
       name:"lastName",
       label:"Last Name",
       type:"text",
+      value:"",
       validators:[
         Validators.required,
         Validators.minLength(2)
@@ -40,6 +42,7 @@ export class UserSignUpComponent implements OnInit {
       name:"email",
       label:"Email Id",
       type:"email",
+      value:"",
       validators:[
         Validators.required,
         Validators.minLength(2)
@@ -50,6 +53,7 @@ export class UserSignUpComponent implements OnInit {
       name:"password",
       label:"Password",
       type:"password",
+      value:"",
       validators:[
         Validators.required,
         Validators.minLength(2)
@@ -59,6 +63,7 @@ export class UserSignUpComponent implements OnInit {
       name:"address",
       label:"Address",
       type:"textarea",
+      value:"",
       validators:[
         Validators.required,
         Validators.minLength(2)
