@@ -18,22 +18,18 @@ import { DoctorRoutingModule } from './modules/doctor/doctor-routing.module';
 import { HospitalRoutingModule } from './modules/hospital/hospital-routing.module';
 import { UserRoutingModule } from './modules/user/user-routing.module';
 import { RouterModule } from '@angular/router';
-import { LineChartComponent } from './components/shared/line-chart/line-chart.component';
-import { BarChartComponent } from './components/shared/bar-chart/bar-chart.component';
-import { ModalComponent } from './components/shared/modal/modal.component';
-import { PatientsComponent } from './pages/user/patients/patients.component';
-import { ProfileComponent } from './pages/user/profile/profile.component';
-import { AppointmentsComponent } from './pages/user/appointments/appointments.component';
-import { DashboardComponent } from './pages/user/dashboard/dashboard.component';
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
+// import { MDBBootstrapModulesPro } from 'mdb-angular-ui-kit';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
 
     LandingPageComponent,
-    
-     
+
+
 
 
 
@@ -48,7 +44,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HospitalRoutingModule,
     SharedModule,
     UserRoutingModule,
-    NgbModule
+    NgbModule,
+    MdbModalModule,
+    BrowserAnimationsModule
+    // MDBBootstrapModulesPro
     // UserModule
 
   ],

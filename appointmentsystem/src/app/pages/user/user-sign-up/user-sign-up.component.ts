@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DropdownQuestion } from 'src/app/components/shared/dynamic-field-component/dyanmic-field-question-text';
+import { TextboxQuestion } from 'src/app/components/shared/dynamic-field-component/dynamic-field-question-dropdown';
+import { QuestionBase } from 'src/app/components/shared/dynamic-field-component/dynamic-field-questionbase';
 import { DynamicFormComponent } from 'src/app/components/shared/dynamic-form/dynamic-form.component';
 import { User } from 'src/app/utils/dto/user.model';
 import { FormField } from 'src/app/utils/models/dynamicformfield.model';
@@ -12,65 +15,52 @@ import { UserSignUpService } from '../../../services/user/user-sign-up.service';
 })
 export class UserSignUpComponent implements OnInit {
   @ViewChild("form") form!:DynamicFormComponent
-  formDetails:{
-    title:string,
-    fields:FormField[]
-  }={
-    title:"User Sign Up Form",
-    fields:[
-    {
-      name:"firstName",
-      label:"First Name",
-      type:"text",
-      value:"",
-      validators:[
-        Validators.required,
-        Validators.minLength(2)
-      ]
-    },
-    {
-      name:"lastName",
-      label:"Last Name",
-      type:"text",
-      value:"",
-      validators:[
-        Validators.required,
-        Validators.minLength(2)
-      ]
-    },
-    {
-      name:"email",
-      label:"Email Id",
-      type:"email",
-      value:"",
-      validators:[
-        Validators.required,
-        Validators.minLength(2)
-      ]
-    }
+   questions: QuestionBase<string>[] = [
+
+
+    new TextboxQuestion({
+      key: 'firstName',
+      label: 'First name',
+      value: '',
+      required: true,
+      order: 1
+    }),
+
+    new TextboxQuestion({
+      key: 'lastName',
+      label: 'Last Name',
+      type: 'text',
+      required: true,
+      order: 2
+    }),
+    new TextboxQuestion({
+      key: 'Email',
+      label: 'Email',
+      type: 'email',
+      order: 3
+    }),
+    new TextboxQuestion({
+      key: 'password',
+      label: 'Password',
+      type: 'password',
+      order: 2
+    })
     ,
-    {
-      name:"password",
-      label:"Password",
-      type:"password",
-      value:"",
-      validators:[
-        Validators.required,
-        Validators.minLength(2)
-      ]
-    },
-    {
-      name:"address",
-      label:"Address",
-      type:"textarea",
-      value:"",
-      validators:[
-        Validators.required,
-        Validators.minLength(2)
-      ]
-    }
-      ]
-  }
+    new TextboxQuestion({
+      key: 'address',
+      label: 'Address',
+      type: 'text',
+      order: 2
+    }),
+    new TextboxQuestion({
+      key: 'dob',
+      label: 'Date Of Birth',
+      type: 'date',
+      order: 2
+    }),
+
+  ];
+
 user!:User
 isLoading:boolean = false
 hasError = false
@@ -88,18 +78,7 @@ userFormGroup = new FormGroup({
 
 submit(e:Event){
 
-  console.log(this.form.formData);
-  // console.log("Hii I am called",this.userFormGroup.value);
-  // this.isLoading = true
-  // this.userSignUpService.signUpUser("http://localhost:8080/api/person",this.userFormGroup.value).subscribe((data)=>{
-  //   console.log("Succesfully Signedup user",data)
-  //   this.isLoading = false
-  // },(err)=>{
-  //   console.log("Error Occured",err)
-  //   // this.isLoading = false
-  //   this.hasError=true
-  //   this.errors.push(...err.error.errorObj)
-  // })
+
 }
 constructor(private userSignUpService:UserSignUpService){
 

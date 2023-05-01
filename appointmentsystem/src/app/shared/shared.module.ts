@@ -15,7 +15,7 @@ import { DynamicFieldComponentComponent } from '../components/shared/dynamic-fie
 import { LineChartComponent } from '../components/shared/line-chart/line-chart.component'
 import { BarChartComponent } from '../components/shared/bar-chart/bar-chart.component'
 import { ModalComponent } from '../components/shared/modal/modal.component'
-
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 @NgModule({
   declarations: [
     RoleCardComponent,
@@ -36,7 +36,8 @@ import { ModalComponent } from '../components/shared/modal/modal.component'
     RouterModule,
     FormsModule,
     NgChartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MdbModalModule
   ],
   exports: [
     RoleCardComponent,

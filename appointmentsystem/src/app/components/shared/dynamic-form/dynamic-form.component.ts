@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { QuestionControlService } from 'src/app/services/shared/question-control.service';
 import { FormField } from 'src/app/utils/models/dynamicformfield.model';
 import { FormGroupFields } from 'src/app/utils/models/formgroupfields.model';
+import { QuestionBase } from '../dynamic-field-component/dynamic-field-questionbase';
 
 @Component({
   selector: 'app-shared-dynamic-form',
@@ -10,24 +12,19 @@ import { FormGroupFields } from 'src/app/utils/models/formgroupfields.model';
 })
 export class DynamicFormComponent implements OnInit{
 
-  form!:FormGroup
-  @Input() formData!: {
-    title:string,
-    fields:FormField[]
-  };
-  @Output()formDetails = new EventEmitter<FormGroup>();
+  @Input() questions: QuestionBase<string>[] | null = [];
+  form!: FormGroup;
+  // @Output()formDetails = new EventEmitter<FormGroup>();
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private qcs:QuestionControlService) {}
   ngOnInit(){
-    this.form = this.formBuilder.group({});
-    this.formData.fields.forEach(field=>{
-      console.log("Adding a new Field")
-      this.form.addControl(field.name, this.formBuilder.control('', field.validators));
-    })
+    this.form = this.qcs.toFormGroup(this.questions as QuestionBase<string>[])
+
   }
 
-  getFormData(){
-    this.formDetails.emit();
+ 
+  onSubmit(){
+      console.log(this.form.value)
   }
 
 }

@@ -1,12 +1,18 @@
-<!-- <form> -->
-<label class="form-label" for="{{ field.name }}">{{ field.label }}</label>
-<input class="form-input" [type]="field.type" [id]="field.name" 
-[(value)]="field.value"
-/>
-<!-- </form> -->
-<!-- <input
-  class="form-input"
-  type={{ field.type }}
-  id={{ field.name }}
-  formControlName={{ field.name }}
-/> -->
+<div [formGroup]="form">
+  <label class="form-label" [attr.for]="question.key">{{question.label}}</label>
+
+  <div [ngSwitch]="question.controlType">
+
+    <input class="form-input" *ngSwitchCase="'textbox'" [formControlName]="question.key"
+    [(ngModel)]="question.value"
+
+            [id]="question.key" [type]="question.type">
+
+    <select class="form-input" [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
+      <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
+    </select>
+
+  </div>
+
+  <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
+</div>

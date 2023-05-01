@@ -1,5 +1,16 @@
-<form [formGroup]="form">
-    <div class="form-field" *ngFor="let field of formData.fields">
-        <app-shared-dynamic-field-component [field]="field"></app-shared-dynamic-field-component>
-      </div>
+<div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+    <div *ngFor="let question of questions" class="form-field">
+      <app-shared-dynamic-field-component [question]="question" [form]="form"></app-shared-dynamic-field-component >
+    </div>
+
+    <div class="form-row">
+      <button type="submit" [disabled]="!form.valid">Save</button>
+    </div>
   </form>
+
+  <!-- <div *ngIf="payLoad" class="form-row">
+    <strong>Saved the following values</strong><br>{{payLoad}}
+  </div> -->
+</div>

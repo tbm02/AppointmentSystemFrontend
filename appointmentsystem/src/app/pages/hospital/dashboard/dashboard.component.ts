@@ -3,6 +3,7 @@ import {
   ChartType,
   ChartData
 } from 'chart.js'
+import { HospitalHttpService } from 'src/app/services/hospital/hospital.http.service'
 import { FormField } from 'src/app/utils/models/dynamicformfield.model'
 
 @Component({
@@ -14,6 +15,7 @@ export class DashboardComponent implements OnInit {
   showChart = false
   public chartType: ChartType = 'line'
   public labels: string[] = ['BJP', 'AAP', 'INC']
+  appointmentData!:any[]
   // public data:number[] = [156,4,19]
   public data: ChartData<ChartType, number[], string | string[]> ={
     datasets:[]
@@ -21,13 +23,20 @@ export class DashboardComponent implements OnInit {
   generateChart () {
     throw new Error('Method not implemented.')
   }
+  constructor(private hospitalHttpService:HospitalHttpService){
+
+  }
   // chartType!: string;
-  ngOnInit (): void {}
+  ngOnInit (): void {
+    this.hospitalHttpService.getAllAppointmentsForHospital().subscribe((res)=>{
+      this.appointmentData = res.data
+    })
+  }
   handleChange (value: string) {
     switch (value) {
       case 'dailyAppointmentCount':
         this.chartType = 'line'
-        let data: { [key: string]: number } = this.dummyData.reduce(
+        let data: { [key: string]: number } = this.appointmentData.reduce(
           (accumulator, value) => {
             const appointmentDate = value.appointmentDate as keyof typeof accumulator
             accumulator[appointmentDate] =
@@ -46,9 +55,10 @@ export class DashboardComponent implements OnInit {
       case 'appointmentShareByDoctor':
         this.chartType = 'pie'
         this.data.datasets.splice(0,this.data.datasets.length)
-         let doctorData = this.dummyData.reduce(
+        console.log(this.appointmentData)
+         let doctorData = this.appointmentData.reduce(
           (accumulator, value) => {
-            const doctor = value.doctor.doctorFirstName as keyof typeof accumulator
+            const doctor = value.doctor.firstName as keyof typeof accumulator
             console.log(doctor)
             accumulator[doctor] =
                 (accumulator[doctor] || 0) + 1
@@ -66,116 +76,6 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  dummyData = [
-    {
-      appointmentId: 'A001',
-      patient: {
-        patientId: 'P002',
-        patientFirstName: 'Bob',
-        pateintContactNo: '555-2222'
-      },
-      diagnosis: null,
-      doctor: {
-        doctorId: 'D002',
-        doctorFirstName: 'Jane',
-        doctorContactNo: '555-5678'
-      },
-      diseaseId: null,
-      appointmentDate: '2023-04-28',
-      appointmentTime: '10:00 AM',
-      appointmentStatus: 'scheduled'
-    },
-    {
-      appointmentId: 'A002',
-      patient: {
-        patientId: 'P001',
-        patientFirstName: 'Alice',
-        pateintContactNo: '555-1111'
-      },
-      diagnosis: null,
-      doctor: {
-        doctorId: 'D002',
-        doctorFirstName: 'Jane',
-        doctorContactNo: '555-5678'
-      },
-      diseaseId: null,
-      appointmentDate: '2023-04-25',
-      appointmentTime: '10:00 AM',
-      appointmentStatus: 'confirmed'
-    },
-    {
-      appointmentId: 'A003',
-      patient: {
-        patientId: 'P002',
-        patientFirstName: 'Bob',
-        pateintContactNo: '555-2222'
-      },
-      diagnosis: null,
-      doctor: {
-        doctorId: 'D002',
-        doctorFirstName: 'Jane',
-        doctorContactNo: '555-5678'
-      },
-      diseaseId: null,
-      appointmentDate: '2023-04-25',
-      appointmentTime: '10:00 AM',
-      appointmentStatus: 'scheduled'
-    },
-    {
-      appointmentId: 'A004',
-      patient: {
-        patientId: 'P001',
-        patientFirstName: 'Alice',
-        pateintContactNo: '555-1111'
-      },
-      diagnosis: null,
-      doctor: {
-        doctorId: 'D001',
-        doctorFirstName: 'John',
-        doctorContactNo: '555-1234'
-      },
-      diseaseId: null,
-      appointmentDate: '2023-04-25',
-      appointmentTime: '10:00 AM',
-      appointmentStatus: 'cancelled'
-    },
-    {
-      appointmentId: 'A005',
-      patient: {
-        patientId: 'P002',
-        patientFirstName: 'Bob',
-        pateintContactNo: '555-2222'
-      },
-      diagnosis: null,
-      doctor: {
-        doctorId: 'D002',
-        doctorFirstName: 'Jane',
-        doctorContactNo: '555-5678'
-      },
-      diseaseId: null,
-      appointmentDate: '2023-04-29',
-      appointmentTime: '10:00 AM',
-      appointmentStatus: 'scheduled'
-    },
-    {
-      appointmentId: 'A006',
-      patient: {
-        patientId: 'P001',
-        patientFirstName: 'Alice',
-        pateintContactNo: '555-1111'
-      },
-      diagnosis: null,
-      doctor: {
-        doctorId: 'D004',
-        doctorFirstName: 'Rohit',
-        doctorContactNo: '555-1234'
-      },
-      diseaseId: null,
-      appointmentDate: '2023-04-26',
-      appointmentTime: '10:00 AM',
-      appointmentStatus: 'scheduled'
-    }
-  ]
 
   // formDetails:{title:string,fields:FormField[]} = {
   //   title:"Hospital Form",

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Injectable, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Injectable, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ModalConfig } from 'src/app/utils/models/modalconfig.model';
+import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap'
 @Component({
   selector: 'app-shared-modal',
@@ -8,24 +9,15 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap'
 })
 @Injectable()
 export class ModalComponent {
-  @Input() public modalConfig!: ModalConfig
-  @ViewChild('modal') private modalContent!: TemplateRef<ModalComponent>
-  private modalRef!: NgbModalRef
-
-  constructor(private modalService: NgbModal) { }
-
-  ngOnInit(): void { }
+  @ViewChild('myModal', {static: false}) modal!: ElementRef;
 
   open() {
-    this.modalRef = this.modalService.open(this.modalContent)
-    this.modalRef.result.then()
+    console.log("Hii I am called")
+    this.modal.nativeElement.style.display = 'block';
   }
 
   close() {
-    this.modalRef.close()
-  }
+    this.modal.nativeElement.style.display = 'none';
 
-  dismiss() {
-    this.modalRef.dismiss()
   }
 }

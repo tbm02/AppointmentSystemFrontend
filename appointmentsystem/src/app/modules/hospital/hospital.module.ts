@@ -14,7 +14,7 @@ import { DoctorCardComponent } from 'src/app/components/hospital/doctor-card/doc
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppointmentCardComponent } from 'src/app/components/hospital/appointment-card/appointment-card.component';
 import { NgChartsModule } from 'ng2-charts';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -26,7 +26,8 @@ import { NgChartsModule } from 'ng2-charts';
     AppointmentsComponent,
     DoctorsComponent,
     DoctorCardComponent,
-    AppointmentCardComponent
+    AppointmentCardComponent,
+
   ],
   imports: [
     CommonModule,
@@ -34,7 +35,8 @@ import { NgChartsModule } from 'ng2-charts';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    NgChartsModule
+    NgChartsModule,
+    MatDialogModule
     // AppModule
   ]
 })
