@@ -7,10 +7,10 @@ import { Chart ,ChartData,ChartType,registerables} from 'chart.js'
   styleUrls: ['./generic-chart.component.css']
 })
 export class GenricChartComponent  {
-  
+
 
   @Input() chartType!:ChartType
   @Input() data!:ChartData<ChartType,number[],string|string[]>
-  @Input() height:number = 75
-  @Input() width:number = 75
+  @Input() height:number = 50
+  @Input() width:number = 50
 }

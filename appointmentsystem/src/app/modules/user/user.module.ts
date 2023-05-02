@@ -14,6 +14,8 @@ import { PatientsComponent } from 'src/app/pages/user/patients/patients.componen
 import { ProfileComponent } from 'src/app/pages/user/profile/profile.component';
 import { AppointmentsComponent } from 'src/app/pages/user/appointments/appointments.component';
 import { DashboardComponent } from 'src/app/pages/user/dashboard/dashboard.component';
+import { PatientCardComponent } from 'src/app/components/user/patient-card/patient-card.component';
+import { AppointmentCardComponent } from 'src/app/components/user/appointment-card/appointment-card.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { DashboardComponent } from 'src/app/pages/user/dashboard/dashboard.compo
      ProfileComponent,
      AppointmentsComponent,
      DashboardComponent,
-    
+     PatientCardComponent,
+     AppointmentCardComponent
+
   ],
   imports: [
     CommonModule,

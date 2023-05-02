@@ -44,7 +44,7 @@
   /* flex-direction: column; */
 }
 
-.form-label{
+:host ::ng-deep .form-label{
   font-size: 1.25rem;
 
 

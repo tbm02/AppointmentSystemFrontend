@@ -13,6 +13,7 @@ html, body {
 header {
   height: var(--header-height);
   width: 100vw;
+  /* z-index: 1; */
   background-color: #41a69c;
   color: #fff;
   position: fixed;
@@ -37,12 +38,14 @@ aside {
 
 /* Main content styles */
 section {
-  margin-top: var(--header-height); /* Add space for the header */
+  /* position: relative; */
+  z-index: 0;
+  margin-top: var(--header-height);
+  /* margin-top: 100px; */
   padding: 50px;
-  /* position: fixed;
-  top: 50px; */
-  margin-left: 280px; /* Adjust to account for sidebar width and margin */
-  margin-right: 20px; /* Add margin to separate main content and sidebar */
+  /* padding: calc(var(--header-height) + 80px) 50px 50px 280px; */
+  margin-left: 280px;
+  margin-right: 20px;
 }
 
 /* Footer styles */

@@ -1,19 +1,21 @@
 <div class="page-container">
-    <div class="hospital-information">
+    <div class="text-information-container"><div class="hospital-information">
         <h2>Hospital Details</h2>
-        <p>Hospital Name : </p>
+        <p>Hospital Name : {{hospitalData.hospitalName}} </p>
         <p>Hospital GHID NO: </p>
-        <p>Hospital Contact No: </p>
-        <p>Hospital Email No: </p>
-        <p>Hospital Address: </p>
+        <p>Hospital Contact No: {{hospitalData.user.contactNo}}</p>
+        <p>Hospital Email No: {{hospitalData.user.email}}</p>
+        <p>Hospital Address: {{hospitalData.hospitalAddress}}</p>
     </div>
     <div class="stastic-container">
-        <p>No of appointments booked: </p>
-        <p>No Of completed appointments: </p>
-        <p>No Of Pending Appointments: </p>
-        <p>No of Cancelled Appointments: </p>
-        
+      <h2>Appointment Data</h2>
+        <p>No of appointments booked: {{appointmentStats.totalAppointments}}</p>
+        <p>No Of completed appointments: {{appointmentStats.completedAppointments}} </p>
+        <p>No Of Pending Appointments: {{appointmentStats.pendingAppointments}} </p>
+        <p>No of Cancelled Appointments: {{appointmentStats.cancelledAppointments}}</p>
+
     </div>
+  </div>
     <div class="charts-container">
         <p>This section Should contain the charts</p>
         <div class="chart-header">
@@ -25,6 +27,8 @@
               <option value="appointmentShareByDoctor">Appointment Share by Each Doctor</option>
             </select>
           </div>
+          <div class="chart">
           <app-shared-generic-chart *ngIf="showChart" [chartType]="chartType" [data]="data"></app-shared-generic-chart>
+        </div>
     </div>
 </div>

@@ -3,12 +3,12 @@ html, body {
     margin: 0;
     padding: 0;
   }
-  
+
   /* Define a custom CSS variable for the height of the header */
   :root {
     --header-height: 60px;
   }
-  
+
   /* Header styles */
   header {
     height: var(--header-height);
@@ -21,7 +21,7 @@ html, body {
     margin-bottom: 20px; /* Add margin to separate header and sidebar */
     display: flex;
   }
-  
+
   /* Sidebar styles */
   aside {
     width: 250px;
@@ -34,17 +34,17 @@ html, body {
     margin-right: 20px; /* Add margin to separate sidebar and main content */
     overflow-y: auto;
   }
-  
+
   /* Main content styles */
   section {
     margin-top: var(--header-height); /* Add space for the header */
-    padding: 50px;
+    padding: 75px;
     /* position: fixed;
     top: 50px; */
     margin-left: 280px; /* Adjust to account for sidebar width and margin */
     margin-right: 20px; /* Add margin to separate main content and sidebar */
   }
-  
+
   /* Footer styles */
   footer {
     background-color: #007bff;
@@ -59,6 +59,5 @@ html, body {
     width: 100%;
     margin-top: 20px; /* Add margin to separate footer and main content */
   }
-  
-  
-  
+
+

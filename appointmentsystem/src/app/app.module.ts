@@ -22,13 +22,16 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 // import { MDBBootstrapModulesPro } from 'mdb-angular-ui-kit';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppointmentCardComponent } from './components/user/appointment-card/appointment-card.component';
+// import { AppointmentComponent } from './pages/user/appointment/appointment.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
 
     LandingPageComponent,
-
+    
 
 
 

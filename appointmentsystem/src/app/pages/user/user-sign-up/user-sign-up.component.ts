@@ -23,6 +23,7 @@ export class UserSignUpComponent implements OnInit {
       label: 'First name',
       value: '',
       required: true,
+      validations:[Validators.required,Validators.minLength(2)],
       order: 1
     }),
 
@@ -31,12 +32,14 @@ export class UserSignUpComponent implements OnInit {
       label: 'Last Name',
       type: 'text',
       required: true,
+      validations:[Validators.required],
       order: 2
     }),
     new TextboxQuestion({
       key: 'Email',
       label: 'Email',
       type: 'email',
+      validations:[Validators.required,Validators.email],
       order: 3
     }),
     new TextboxQuestion({
@@ -77,7 +80,8 @@ userFormGroup = new FormGroup({
 });
 
 submit(e:Event){
-
+  console.log(this.form)
+console.log(this.form.form.value)
 
 }
 constructor(private userSignUpService:UserSignUpService){

@@ -1,1 +1,16 @@
-<p>patients works!</p>
+<div class="page-container">
+  <div class="filter-container">
+    <!-- <app-shared-filter-component></app-shared-filter-component> -->
+    <input type="text" >
+  </div>
+  <div class="list-container">
+    <div class="list"></div>
+    <div *ngFor="let patient of patients">
+
+
+      <!-- <p>Patient</p> -->
+      <app-user-patient-card [patient]="patient"></app-user-patient-card>
+
+    </div>
+  </div>
+</div>

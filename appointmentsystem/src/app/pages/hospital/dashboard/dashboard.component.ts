@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, OnDestroy, OnInit } from '@angular/core'
 import {
   ChartType,
   ChartData
 } from 'chart.js'
 import { HospitalHttpService } from 'src/app/services/hospital/hospital.http.service'
+import { Appointment } from 'src/app/utils/dto/appointment.model'
+import { Hospital } from 'src/app/utils/dto/hospital.model'
 import { FormField } from 'src/app/utils/models/dynamicformfield.model'
 
 @Component({
@@ -11,11 +13,18 @@ import { FormField } from 'src/app/utils/models/dynamicformfield.model'
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit,OnDestroy {
   showChart = false
   public chartType: ChartType = 'line'
   public labels: string[] = ['BJP', 'AAP', 'INC']
-  appointmentData!:any[]
+  appointmentData!:Appointment[]
+  hospitalData!:Hospital
+  appointmentStats:{completedAppointments:number,pendingAppointments:number,cancelledAppointments:number,totalAppointments:number}={
+    cancelledAppointments:0,
+    completedAppointments:0,
+    pendingAppointments:0,
+    totalAppointments:0
+  }
   // public data:number[] = [156,4,19]
   public data: ChartData<ChartType, number[], string | string[]> ={
     datasets:[]
@@ -29,8 +38,40 @@ export class DashboardComponent implements OnInit {
   // chartType!: string;
   ngOnInit (): void {
     this.hospitalHttpService.getAllAppointmentsForHospital().subscribe((res)=>{
-      this.appointmentData = res.data
+      this.appointmentData = res.data as Appointment[]
+      this.appointmentStats.totalAppointments = res.data.length
+
+      this.appointmentData.forEach(appointment=>{
+       switch(appointment.status){
+        case 'Cancelled':
+          this.appointmentStats.cancelledAppointments = (this.appointmentStats.cancelledAppointments + 1) || 1
+          break
+          case 'Pending':
+            this.appointmentStats.pendingAppointments = (this.appointmentStats.pendingAppointments + 1) || 1
+            break
+          case 'Completed':
+              this.appointmentStats.completedAppointments = (this.appointmentStats.completedAppointments + 1) || 1
+              break
+          default:
+            console.log(appointment.status)
+            break
+       }
+      })
     })
+    this.hospitalHttpService.getHospitalDetails().subscribe({
+      next:(res)=>{
+        console.log(res)
+        this.hospitalData = res.data as Hospital
+
+      },error:(err)=>{
+
+      },complete:()=>{
+
+      }
+    })
+  }
+  ngOnDestroy(): void {
+
   }
   handleChange (value: string) {
     switch (value) {

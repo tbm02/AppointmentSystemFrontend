@@ -1,3 +1,5 @@
+import { ValidatorFn, Validators } from "@angular/forms";
+
 export class QuestionBase<T> {
   value: T|undefined;
   key: string;
@@ -6,16 +8,19 @@ export class QuestionBase<T> {
   order: number;
   controlType: string;
   type: string;
+  validations:ValidatorFn[] = [];
   options: {key: string, value: string}[];
 
   constructor(options: {
-      value?: T;
-      key?: string;
-      label?: string;
-      required?: boolean;
-      order?: number;
-      controlType?: string;
-      type?: string;
+      value?: T,
+      key?: string,
+      label?: string,
+      required?: boolean,
+      order?: number,
+      controlType?: string,
+      type?: string,
+      validations?:ValidatorFn[]
+
       options?: {key: string, value: string}[];
     } = {}) {
     this.value = options.value;
@@ -26,5 +31,6 @@ export class QuestionBase<T> {
     this.controlType = options.controlType || '';
     this.type = options.type || '';
     this.options = options.options || [];
+    this.validations = options.validations || []
   }
 }

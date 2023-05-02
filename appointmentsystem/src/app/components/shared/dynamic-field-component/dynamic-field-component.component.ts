@@ -11,5 +11,9 @@ import { QuestionBase } from './dynamic-field-questionbase';
 export class DynamicFieldComponentComponent {
   @Input() question!: QuestionBase<string>;
   @Input() form!: FormGroup;
-  get isValid() { return (this.form.controls[this.question.key].touched && this.form.controls[this.question.key].valid); }
+  get isInvalid() {
+    // console.log(this.form.controls[this.question.key])
+    // console.log(this.question.key," ",this.form.controls[this.question.key])
+    console.log(this.form.controls[this.question.key])
+    return (this.form.controls[this.question.key].touched && !this.form.controls[this.question.key].valid); }
 }

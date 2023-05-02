@@ -6,8 +6,8 @@
   <div class="form-container">
     <!-- <app-shared-dynamic-form #form [formData]="formDetails"></app-shared-dynamic-form>
      -->
-     <app-shared-dynamic-form [questions]="questions"></app-shared-dynamic-form>
-    <button (click)="submit($event)"></button>
+     <app-shared-dynamic-form [questions]="questions" #form></app-shared-dynamic-form>
+    <button (click)="submit($event)">Sign UP</button>
     <!-- <form [formGroup]="userFormGroup" class="form">
       <div class="form-element">
 

@@ -14,5 +14,8 @@
 
   </div>
 
-  <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
+  <div class="errorMessage" *ngIf="isInvalid" >
+
+    <p *ngIf="form.controls[question.key].errors?.['required']">{{question.label}} is required and can not be empty</p>
+  </div>
 </div>
