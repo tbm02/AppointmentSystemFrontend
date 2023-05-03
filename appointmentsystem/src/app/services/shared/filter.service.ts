@@ -49,7 +49,9 @@ export class FilterService{
       // let tempArray = []
       filterfieldValues.forEach(({field,inclusive})=>{
         tempFilterObj = filterfieldValues?.find(obj=>obj.field === field);
+      //  tempFilterObj?.values.splice(0,tempFilterObj.values.length)
         if(inclusive){
+
           data.forEach((dataObj)=>{
             (dataObj[field as keyof T] as string[]).forEach((value: any)=>{
               if (!tempFilterObj?.values.includes(value)) {

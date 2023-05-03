@@ -2,6 +2,7 @@ import { User } from "./user.model";
 
 export interface Hospital{
   user:User,
+  hospitalId:string,
   hospitalName:string,
   hospitalAddress:string,
   doctors?:{

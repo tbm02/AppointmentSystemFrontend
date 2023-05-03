@@ -1,4 +1,10 @@
+<button (click)="bookAppointment()">Book Appointment</button>
+<app-shared-modal #modalRef >
+  <app-shared-dynamic-form *ngIf="renderForm" [questions]="questions" #addAppointmentForm></app-shared-dynamic-form>
+  <button class="submit-button" (click)="submit($event)" >Submit</button>
+  <button class="remove-button" >Remove</button>
 
+</app-shared-modal>
 <div *ngFor="let appointment of appointments">
   <app-user-appointment-card [appointment]="appointment"></app-user-appointment-card>
 </div>

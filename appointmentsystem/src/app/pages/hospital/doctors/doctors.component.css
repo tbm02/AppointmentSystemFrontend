@@ -4,24 +4,24 @@
     padding: 20px;
     position: relative;
   }
-  
+
   .doctor-list-filters {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
   }
-  
+
   .doctor-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
   }
-  
+
   .doctor-list p {
     text-align: center;
     margin-top: 20px;
   }
-  
+
   .add-doctor-button {
     position: absolute;
     top: 20px;
@@ -32,13 +32,45 @@
     font-size: 1.2rem;
     cursor: pointer;
   }
-  
+
   .add-doctor-button-primary {
     background-color: #2196F3;
     color: #fff;
   }
-  
+
   .add-doctor-button-primary:hover {
     background-color: #0c7cd5;
   }
    */
+   .submit-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  /* Delete button */
+  .remove-button {
+    background-color: #f44336; /* Red */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .modal{
+    
+  }

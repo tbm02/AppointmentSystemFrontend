@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { debounceTime, Subject, Subscription } from 'rxjs'
 import { ModalComponent } from 'src/app/components/shared/modal/modal.component'
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal'
@@ -12,6 +12,7 @@ import { QuestionBase } from 'src/app/components/shared/dynamic-field-component/
 import { TextboxQuestion } from 'src/app/components/shared/dynamic-field-component/dynamic-field-question-dropdown'
 import { DropdownQuestion } from 'src/app/components/shared/dynamic-field-component/dyanmic-field-question-text'
 import { DynamicFormComponent } from 'src/app/components/shared/dynamic-form/dynamic-form.component'
+import { DynamicFormService } from 'src/app/services/shared/dynamic-form.service'
 
 @Component({
   selector: 'app-hospital-doctors',
@@ -25,16 +26,11 @@ export class DoctorsComponent implements OnInit {
   modalConfig:ModalConfig={modalTitle:"Doctor Form"}
   @ViewChild("modalRef")modalComponant!:ModalComponent
   @ViewChild("addDoctorForm")addDoctorForm!:DynamicFormComponent
-  selectedSpecialization!: Specialization
-  specializations: Specialization[] = [
-    { specializationId: '1', specializationName: 'Neurologist' },
-    { specializationId: '2', specializationName: 'Orthopadic' },
-    { specializationId: '3', specializationName: 'Gynac' }
-  ]
+ 
   filterfieldValues: FilterObject[] = [
     {
       field: 'specializations',
-      values: ['Pending','Cancel'],
+      values: [],
       inclusive: true
     },
     { field: 'gender', values: [], inclusive: false }
@@ -42,7 +38,7 @@ export class DoctorsComponent implements OnInit {
   doctorData: Doctor[] = []
   subscription!: Subscription
   // modalRef: MdbModalRef<ModalComponent> | null = null;
-  constructor (private hospitalHttpService: HospitalHttpService,private modalService: MdbModalService,private filterService:FilterService) {}
+  constructor (private hospitalHttpService: HospitalHttpService,private modalService: MdbModalService,private filterService:FilterService,private dynamicFormService:DynamicFormService) {}
   filteredDoctors: Doctor[] = this.doctorData
   ngOnInit (): void {
     this.subscription = this.hospitalHttpService
@@ -52,7 +48,7 @@ export class DoctorsComponent implements OnInit {
           console.log('Here We Have recieved data', data)
           this.doctorData = data.data
 
-          // this.filterService.registerValues(this.doctorData,this.filterfieldValues)
+          this.filterService.registerValues(this.doctorData,this.filterfieldValues)
           this.filteredDoctors = this.doctorData
           console.log(this.doctorData)
         },
@@ -71,11 +67,13 @@ export class DoctorsComponent implements OnInit {
       this.doctorData,
       filterParams
     )
+    this.filterService.registerValues(this.filteredDoctors,this.filterfieldValues)
   }
   filterByFields (filterParam: FilterObject) {}
 
   addDoctor () {
-     }
+    // this.modalComponant.open()
+  }
 
   searchDoctorsByName (searchQuery: string) {
     // console.log("Attemping to Searcj",searchQuery)
@@ -227,40 +225,10 @@ export class DoctorsComponent implements OnInit {
 
   ]
   viewProfile(data:Doctor){
-    console.log(data.gender)
-    console.log(this.addDoctorForm.form.value)
-    let tempObj:any = {}
-    Object.keys(data).forEach((key)=>{
 
-      this.giveDataObject(data,key,tempObj)
-
-    })
-    console.log(tempObj)
-    let tempObj2:any = {}
-    Object.keys(tempObj).forEach((key:string)=>{
-      tempObj2[key] = tempObj[key]
-      this.addDoctorForm.form.patchValue(tempObj2)
-      tempObj2 = {}
-    })
+    this.dynamicFormService.populateFormWithData<Doctor>(this.addDoctorForm.form,data)
     this.modalComponant.open()
   }
 
-  giveDataObject(data:any,key:any,tempObj:any){
 
-
-      if(Array.isArray(data[key as keyof Doctor])){
-
-        tempObj[key] = data[key as keyof Doctor]
-      }else if(typeof data[key as keyof Doctor] === 'object'  && data[key as keyof Doctor] !== null){
-
-        Object.keys(data[key as keyof Doctor]).forEach(subKey=>{
-
-          this.giveDataObject(data[key as keyof Doctor],subKey,tempObj)
-        })
-
-      }
-      tempObj[key] = data[key as keyof Doctor]
-      return
-
-  }
 }

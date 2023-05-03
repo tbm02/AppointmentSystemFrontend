@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { Validators } from '@angular/forms'
+import { DropdownQuestion } from 'src/app/components/shared/dynamic-field-component/dyanmic-field-question-text'
+import { QuestionBase } from 'src/app/components/shared/dynamic-field-component/dynamic-field-questionbase'
 import { HospitalHttpService } from 'src/app/services/hospital/hospital.http.service'
 import { FilterService } from 'src/app/services/shared/filter.service'
 import { Appointment } from 'src/app/utils/dto/appointment.model'
@@ -17,7 +20,7 @@ export class AppointmentsComponent implements OnInit{
   filterfieldValues: FilterObject[] = [
     {
       field: 'status',
-      values: [],
+      values: ["Pending","Cancel"],
       inclusive: false,
     }
   ]
@@ -47,5 +50,12 @@ export class AppointmentsComponent implements OnInit{
 
     }
 
-
+    questions:QuestionBase<string>[] = [
+     new DropdownQuestion({
+       key:'hospitalId',
+       label:"Hospital",
+        validations:[Validators.required],
+        
+      })
+    ]
 }
