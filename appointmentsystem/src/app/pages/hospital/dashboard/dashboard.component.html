@@ -1,19 +1,17 @@
 <div class="page-container">
-    <div class="text-information-container"><div class="hospital-information">
-        <h2>Hospital Details</h2>
+    <!-- <div class="text-information-container"><div class="hospital-information"> -->
+        <!-- <h2>Hospital Details</h2>
         <p>Hospital Name : {{hospitalData.hospitalName}} </p>
         <p>Hospital GHID NO: </p>
         <p>Hospital Contact No: {{hospitalData.user.contactNo}}</p>
         <p>Hospital Email No: {{hospitalData.user.email}}</p>
-        <p>Hospital Address: {{hospitalData.hospitalAddress}}</p>
-    </div>
+        <p>Hospital Address: {{hospitalData.hospitalAddress}}</p> -->
+    <!-- </div> -->
     <div class="stastic-container">
       <h2>Appointment Data</h2>
-        <p>No of appointments booked: {{appointmentStats.totalAppointments}}</p>
-        <p>No Of completed appointments: {{appointmentStats.completedAppointments}} </p>
-        <p>No Of Pending Appointments: {{appointmentStats.pendingAppointments}} </p>
-        <p>No of Cancelled Appointments: {{appointmentStats.cancelledAppointments}}</p>
-
+       <div class="dashboard-card-container">
+        <app-shared-dashboard-card *ngFor="let stat of appointmentStats | keyvalue" [title]="stat.key" [data]="stat.value"></app-shared-dashboard-card>
+      </div>
     </div>
   </div>
     <div class="charts-container">
@@ -31,4 +29,3 @@
           <app-shared-generic-chart *ngIf="showChart" [chartType]="chartType" [data]="data"></app-shared-generic-chart>
         </div>
     </div>
-</div>

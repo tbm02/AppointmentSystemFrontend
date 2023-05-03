@@ -1,8 +1,10 @@
-.text-information-container{
-
-  margin-top: 100px;
-}
 
 .chart{
   width: 50%;
+}
+.dashboard-card-container{
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  /* z-index: -1; */
 }

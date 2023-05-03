@@ -116,7 +116,9 @@ export class DashboardComponent implements OnInit,OnDestroy {
         break
     }
   }
-
+  getAppointmentStat(key:any){
+    return this.appointmentStats[key as keyof typeof this.appointmentStats]
+  }
 
   // formDetails:{title:string,fields:FormField[]} = {
   //   title:"Hospital Form",

@@ -1,0 +1,58 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  height: 200px;
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.card-data {
+  font-size: 36px;
+  font-weight: bold;
+  color: #41a69c;
+  text-align: center;
+}
+.increment {
+  font-size: 40px;
+  font-weight: bold;
+  color: #41a69c;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  animation: increment 1s linear forwards;
+}
+
+@keyframes increment {
+  from {
+    content: attr(data-number);
+  }
+  to {
+    content: counter(data-number);
+  }
+}
+
+.card[data-color='red'] {
+  background-color: #ff5252;
+}
+
+.card[data-color='green'] {
+  background-color: #66bb6a;
+}
+
+.card[data-color='blue'] {
+  background-color: #42a5f5;
+}

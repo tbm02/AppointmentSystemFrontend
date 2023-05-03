@@ -35,7 +35,7 @@ export class DoctorsComponent implements OnInit {
       values: [],
       inclusive: true
     },
-    { field: 'gender', values: ['Male', 'Female'], inclusive: false }
+    { field: 'gender', values: [], inclusive: false }
   ]
   doctorData: Doctor[] = []
   subscription!: Subscription
@@ -49,13 +49,35 @@ export class DoctorsComponent implements OnInit {
         next: data => {
           console.log('Here We Have recieved data', data)
           this.doctorData = data.data
-          data.data.forEach(doctor => {
-            doctor.specializations.forEach(spcialization => {
-              if (!this.filterfieldValues[0].values.includes(spcialization)) {
-                this.filterfieldValues[0].values.push(spcialization)
-              }
-            })
+          let tempFilterObj!:FilterObject|undefined
+          let tempArray = []
+          this.filterfieldValues.forEach(({field,inclusive})=>{
+            tempFilterObj = this.filterfieldValues?.find(obj=>obj.field === field);
+            if(inclusive){
+              this.doctorData.forEach((doctor)=>{
+                (doctor[field as keyof Doctor] as string[]).forEach((value: any)=>{
+                  if (!tempFilterObj?.values.includes(value)) {
+                          tempFilterObj?.values.push(value)
+                        }
+                })
+
+              })
+            }else{
+              this.doctorData.forEach((doctor)=>{
+
+                if (!tempFilterObj?.values.includes(doctor[field as keyof Doctor])) {
+                  tempFilterObj?.values.push(doctor[field as keyof Doctor])
+                }
+              })
+            }
           })
+          // data.data.forEach(doctor => {
+          //   doctor.specializations.forEach(spcialization => {
+          //     if (!this.filterfieldValues[0].values.includes(spcialization)) {
+          //       this.filterfieldValues[0].values.push(spcialization)
+          //     }
+          //   })
+          // })
           this.filteredDoctors = this.doctorData
           console.log(this.doctorData)
         },

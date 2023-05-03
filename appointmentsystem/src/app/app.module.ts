@@ -23,6 +23,7 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppointmentCardComponent } from './components/user/appointment-card/appointment-card.component';
+import { DashboardCardComponent } from './components/shared/dashboard-card/dashboard-card.component';
 // import { AppointmentComponent } from './pages/user/appointment/appointment.component';
 
 
@@ -31,7 +32,8 @@ import { AppointmentCardComponent } from './components/user/appointment-card/app
     AppComponent,
 
     LandingPageComponent,
-    
+ 
+
 
 
 

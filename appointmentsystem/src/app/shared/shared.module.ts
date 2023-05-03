@@ -16,6 +16,7 @@ import { LineChartComponent } from '../components/shared/line-chart/line-chart.c
 import { BarChartComponent } from '../components/shared/bar-chart/bar-chart.component'
 import { ModalComponent } from '../components/shared/modal/modal.component'
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
+import { DashboardCardComponent } from '../components/shared/dashboard-card/dashboard-card.component'
 @NgModule({
   declarations: [
     RoleCardComponent,
@@ -29,7 +30,8 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
     LineChartComponent,
     BarChartComponent,
     ModalComponent,
-    SideBarComponent
+    SideBarComponent,
+    DashboardCardComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
     LineChartComponent,
     BarChartComponent,
     ModalComponent,
-    SideBarComponent
+    SideBarComponent,
+    DashboardCardComponent
   ]
 })
 export class SharedModule {}

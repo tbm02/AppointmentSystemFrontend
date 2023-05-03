@@ -38,7 +38,7 @@ html, body {
   /* Main content styles */
   section {
     margin-top: var(--header-height); /* Add space for the header */
-    padding: 75px;
+    padding: 100px 50px;
     /* position: fixed;
     top: 50px; */
     margin-left: 280px; /* Adjust to account for sidebar width and margin */
