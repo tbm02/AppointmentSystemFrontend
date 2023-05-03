@@ -9,6 +9,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap'
 })
 export class ModalComponent implements OnInit{
   @ViewChild('myModal', {static: true}) modal!: ElementRef;
+  @Output()modalClose = new EventEmitter<void>()
   private modalRef!: NgbModalRef;
   constructor(private modalService:NgbModal){
 
@@ -25,6 +26,7 @@ export class ModalComponent implements OnInit{
 
   close() {
     this.modal.nativeElement.style.display = 'none';
+    this.modalClose.emit()
     // this.modalRef.close();
   }
 }

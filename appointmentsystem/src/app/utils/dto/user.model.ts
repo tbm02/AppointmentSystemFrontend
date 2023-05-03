@@ -1,7 +1,7 @@
 export interface User{
-userId:string,
+userId?:string,
 email:string,
 contactNo:string,
-roleId:string,
+roleId?:string,
 password:string
 }

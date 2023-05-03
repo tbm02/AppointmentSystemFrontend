@@ -5,10 +5,10 @@
     <app-shared-filter-component [fieldValues]="filterfieldValues" (filterObject)="applyFilter($event)"></app-shared-filter-component>
     <button (click)="addNewDoctor()">Add New Doctor</button>
   </div>
-  <app-shared-modal #modalRef >
+  <app-shared-modal (modalClose)="closeModal()" #modalRef >
       <app-shared-dynamic-form [questions]="questions" #addDoctorForm></app-shared-dynamic-form>
-      <button class="submit-button" >Submit</button>
-      <button class="remove-button" >Remove</button>
+      <button class="submit-button" (click)="submitForm($event)">Submit</button>
+      <button class="remove-button" (click)="removeDoctor($event)">Remove</button>
   </app-shared-modal>
   <div class="doctor-list">
     <app-hospital-doctor-card *ngFor="let doctor of filteredDoctors" [doctor]="doctor" (viewProfile)="viewProfile($event)"></app-hospital-doctor-card>

@@ -3,6 +3,7 @@ import { Specialization } from "./specialization.model";
 import { User } from "./user.model";
 
 export interface Doctor{
+  doctorId?:string,
   user:User,
   firstName:string,
   lastName:string,

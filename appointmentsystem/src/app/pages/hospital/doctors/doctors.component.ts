@@ -21,6 +21,7 @@ import { DynamicFormService } from 'src/app/services/shared/dynamic-form.service
 })
 export class DoctorsComponent implements OnInit {
   searchQuery!: string
+  selectedId:string = ''
   showAddDoctorForm!:boolean;
   private searchQuery$ = new Subject<string>()
   modalConfig:ModalConfig={modalTitle:"Doctor Form"}
@@ -41,25 +42,8 @@ export class DoctorsComponent implements OnInit {
   constructor (private hospitalHttpService: HospitalHttpService,private modalService: MdbModalService,private filterService:FilterService,private dynamicFormService:DynamicFormService) {}
   filteredDoctors: Doctor[] = this.doctorData
   ngOnInit (): void {
-    this.subscription = this.hospitalHttpService
-      .getAllDoctorsForHospital()
-      .subscribe({
-        next: data => {
-          console.log('Here We Have recieved data', data)
-          this.doctorData = data.data
-
-          this.filterService.registerValues(this.doctorData,this.filterfieldValues)
-          this.filteredDoctors = this.doctorData
-          console.log(this.doctorData)
-        },
-        error: err => {
-          console.log('Error Occured', err)
-        },
-        complete () {
-          console.log('COmpleted')
-        }
-      })
-
+    // this.subscription = 
+    this.getDoctorList()
   }
   applyFilter (filterParams: FilterObject[]) {
     console.log(filterParams)
@@ -105,6 +89,8 @@ export class DoctorsComponent implements OnInit {
   closeModal(){
     console.log("HEres")
     // this.showAddDoctorForm = false
+    this.selectedId = ''
+    // this.addDoctorForm.form.value = []
   }
 
   questions:QuestionBase<string>[] = [
@@ -170,12 +156,13 @@ export class DoctorsComponent implements OnInit {
       label:"OPD End Time",
       required:true,
       value:'',
+      
       type:'time',
 
     }),
     new TextboxQuestion({
       key:"recessStartTime",
-      label:"Recess End Time",
+      label:"Recess Start Time",
       required:true,
       value:'',
       type:'time',
@@ -225,10 +212,93 @@ export class DoctorsComponent implements OnInit {
 
   ]
   viewProfile(data:Doctor){
-
+    this.selectedId  = data.doctorId || ''
     this.dynamicFormService.populateFormWithData<Doctor>(this.addDoctorForm.form,data)
     this.modalComponant.open()
   }
+  submitForm(e:Event){
+    
+    console.log(this.addDoctorForm.form.value)
+    // this.hospitalHttpService.
+    let body:any = this.addDoctorForm.form.value
+    console.log(body)
+    body["user"] = {
+      email:body.email,
+      password:body.password,
+      contactNo:body.contactNo
+    }
+    body["hospital"]={
+      hospitalId:"1"
+    }
+    // body.user.
+    if(this.selectedId === ''){
+    this.hospitalHttpService.addNewDoctor(body).subscribe({
+      next:(res)=>{
+        console.log(res)
+        
 
+      },error:(err)=>{
+        console.log(err)
+      },complete:()=>{
+
+      }
+    })}
+    else{
+      this.hospitalHttpService.updateDoctor(body,this.selectedId).subscribe({
+        next:(res)=>{
+          console.log(res)
+          this.getDoctorList()
+  
+        },error:(err)=>{
+          console.log(err)
+          alert(err.message)
+        },complete:()=>{
+  
+        }
+    })
+    this.selectedId = ''
+    this.modalComponant.close()
+  }
+}
+  removeDoctor(e:Event){
+    this.hospitalHttpService.deleteDoctor(this.selectedId).subscribe({
+      next:(res)=>{
+        console.log(res)
+        this.getDoctorList()
+      },error:(err)=>{
+        console.log(err)
+        alert(err.message)
+      },complete:()=>{
+
+      }
+    })
+    this.selectedId = ''
+    this.modalComponant.close()
+
+  }
+  
+
+  getDoctorList(){
+    // this.hospitalHttpService.getAllDoctorsForHospital().subscribe()
+    this.hospitalHttpService
+      .getAllDoctorsForHospital()
+      .subscribe({
+        next: data => {
+          console.log('Here We Have recieved data', data)
+          this.doctorData = data.data
+
+          this.filterService.registerValues(this.doctorData,this.filterfieldValues)
+          this.filteredDoctors = this.doctorData
+          console.log(this.doctorData)
+        },
+        error: err => {
+          console.log('Error Occured', err)
+        },
+        complete () {
+          console.log('COmpleted')
+        }
+      })
+
+  }
 
 }

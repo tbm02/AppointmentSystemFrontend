@@ -17,13 +17,24 @@ export class HospitalHttpService {
     return this.http.get<{statusCode:string,data:Hospital,mMssage:string}>(URL.HOSPITAL_END_POINT+"/1")
   }
   addNewHospital () {}
-  getAllDoctorsForHospital () {
-    return this.http.get<{statusCode:string,data:Doctor[],mMssage:string}>(URL.DOCTOR_END_POINT+"/hospital/1")
-  }
+  
   updateHospitalDetails () {}
 
   getAllAppointmentsForHospital (){
 
     return this.http.get<{statusCode:string,data:Appointment[],mMssage:string}>(URL.APPOINTMENT_END_POINT+"/hospital/1")
+  }
+
+  addNewDoctor(body:Doctor){
+    return this.http.post<{statusCode:string,data:Doctor[],mMssage:string}>(URL.DOCTOR_END_POINT,body)
+  }
+  updateDoctor(body:Doctor,id:string){
+    return this.http.put<{statusCode:string,data:Doctor[],mMssage:string}>(URL.DOCTOR_END_POINT+"/"+id,body)
+  }
+  deleteDoctor(id:string){
+    return this.http.delete<{statusCode:string,data:Doctor[],mMssage:string}>(URL.DOCTOR_END_POINT+"/"+id)
+  }
+  getAllDoctorsForHospital () {
+    return this.http.get<{statusCode:string,data:Doctor[],mMssage:string}>(URL.DOCTOR_END_POINT+"/hospital/1")
   }
 }
