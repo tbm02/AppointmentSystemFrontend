@@ -11,6 +11,7 @@ import { ModalConfig } from 'src/app/utils/models/modalconfig.model'
 import { QuestionBase } from 'src/app/components/shared/dynamic-field-component/dynamic-field-questionbase'
 import { TextboxQuestion } from 'src/app/components/shared/dynamic-field-component/dynamic-field-question-dropdown'
 import { DropdownQuestion } from 'src/app/components/shared/dynamic-field-component/dyanmic-field-question-text'
+import { DynamicFormComponent } from 'src/app/components/shared/dynamic-form/dynamic-form.component'
 
 @Component({
   selector: 'app-hospital-doctors',
@@ -23,6 +24,7 @@ export class DoctorsComponent implements OnInit {
   private searchQuery$ = new Subject<string>()
   modalConfig:ModalConfig={modalTitle:"Doctor Form"}
   @ViewChild("modalRef")modalComponant!:ModalComponent
+  @ViewChild("addDoctorForm")addDoctorForm!:DynamicFormComponent
   selectedSpecialization!: Specialization
   specializations: Specialization[] = [
     { specializationId: '1', specializationName: 'Neurologist' },
@@ -32,7 +34,7 @@ export class DoctorsComponent implements OnInit {
   filterfieldValues: FilterObject[] = [
     {
       field: 'specializations',
-      values: [],
+      values: ['Pending','Cancel'],
       inclusive: true
     },
     { field: 'gender', values: [], inclusive: false }
@@ -40,7 +42,7 @@ export class DoctorsComponent implements OnInit {
   doctorData: Doctor[] = []
   subscription!: Subscription
   // modalRef: MdbModalRef<ModalComponent> | null = null;
-  constructor (private hospitalHttpService: HospitalHttpService,private modalService: MdbModalService) {}
+  constructor (private hospitalHttpService: HospitalHttpService,private modalService: MdbModalService,private filterService:FilterService) {}
   filteredDoctors: Doctor[] = this.doctorData
   ngOnInit (): void {
     this.subscription = this.hospitalHttpService
@@ -49,35 +51,8 @@ export class DoctorsComponent implements OnInit {
         next: data => {
           console.log('Here We Have recieved data', data)
           this.doctorData = data.data
-          let tempFilterObj!:FilterObject|undefined
-          let tempArray = []
-          this.filterfieldValues.forEach(({field,inclusive})=>{
-            tempFilterObj = this.filterfieldValues?.find(obj=>obj.field === field);
-            if(inclusive){
-              this.doctorData.forEach((doctor)=>{
-                (doctor[field as keyof Doctor] as string[]).forEach((value: any)=>{
-                  if (!tempFilterObj?.values.includes(value)) {
-                          tempFilterObj?.values.push(value)
-                        }
-                })
 
-              })
-            }else{
-              this.doctorData.forEach((doctor)=>{
-
-                if (!tempFilterObj?.values.includes(doctor[field as keyof Doctor])) {
-                  tempFilterObj?.values.push(doctor[field as keyof Doctor])
-                }
-              })
-            }
-          })
-          // data.data.forEach(doctor => {
-          //   doctor.specializations.forEach(spcialization => {
-          //     if (!this.filterfieldValues[0].values.includes(spcialization)) {
-          //       this.filterfieldValues[0].values.push(spcialization)
-          //     }
-          //   })
-          // })
+          // this.filterService.registerValues(this.doctorData,this.filterfieldValues)
           this.filteredDoctors = this.doctorData
           console.log(this.doctorData)
         },
@@ -92,7 +67,7 @@ export class DoctorsComponent implements OnInit {
   }
   applyFilter (filterParams: FilterObject[]) {
     console.log(filterParams)
-    this.filteredDoctors = FilterService.applyFilter<Doctor>(
+    this.filteredDoctors = this.filterService.applyFilter<Doctor>(
       this.doctorData,
       filterParams
     )
@@ -156,46 +131,82 @@ export class DoctorsComponent implements OnInit {
       key:"dob",
       label:"Date Of Birth",
       required:true,
-      value:'',
+      value:'23-04-1988',
       type:'date',
 
     }),
     new TextboxQuestion({
-      key:"dob",
-      label:"Date Of Birth",
+      key:"email",
+      label:"Email",
       required:true,
       value:'',
-      type:'date',
-
-    }),new TextboxQuestion({
-      key:"dob",
-      label:"Date Of Birth",
-      required:true,
-      value:'',
-      type:'date',
-
-    }),new TextboxQuestion({
-      key:"dob",
-      label:"Date Of Birth",
-      required:true,
-      value:'',
-      type:'date',
-
-    }),new TextboxQuestion({
-      key:"dob",
-      label:"Date Of Birth",
-      required:true,
-      value:'',
-      type:'date',
-
-    }),new TextboxQuestion({
-      key:"dob",
-      label:"Date Of Birth",
-      required:true,
-      value:'',
-      type:'date',
+      type:'email',
 
     }),
+    new TextboxQuestion({
+      key:"contactNo",
+      label:"Contact No",
+      required:true,
+      value:'',
+      type:'text',
+
+    }),
+    new TextboxQuestion({
+      key:"password",
+      label:"Password",
+      required:true,
+      value:'',
+      type:'password',
+
+    }),
+    new TextboxQuestion({
+      key:"startTime",
+      label:"OPD start time",
+      required:true,
+      value:'',
+      type:'time',
+
+    }),
+    new TextboxQuestion({
+      key:"endTime",
+      label:"OPD End Time",
+      required:true,
+      value:'',
+      type:'time',
+
+    }),
+    new TextboxQuestion({
+      key:"recessStartTime",
+      label:"Recess End Time",
+      required:true,
+      value:'',
+      type:'time',
+
+    }),new TextboxQuestion({
+      key:"recessEndTime",
+      label:"Recess End Time",
+      required:true,
+      value:'',
+      type:'time',
+
+    }),
+    new TextboxQuestion({
+      key:"slotDuration",
+      label:"Slot Duration",
+      required:true,
+      value:'',
+      type:'number',
+
+    }),
+    new TextboxQuestion({
+      key:"bufferTime",
+      label:"Buffer Duration",
+      required:true,
+      value:'',
+      type:'number',
+
+    }),
+
     new DropdownQuestion({
       key:"gender",
       label:"Gender",
@@ -203,11 +214,11 @@ export class DoctorsComponent implements OnInit {
       value:'',
       options:[
         {
-          key:"gender",
+          key:"Male",
           value:"Male"
         },
         {
-          key:"gender",
+          key:"Female",
           value:"Female"
         }
       ]
@@ -215,4 +226,41 @@ export class DoctorsComponent implements OnInit {
     }),
 
   ]
+  viewProfile(data:Doctor){
+    console.log(data.gender)
+    console.log(this.addDoctorForm.form.value)
+    let tempObj:any = {}
+    Object.keys(data).forEach((key)=>{
+
+      this.giveDataObject(data,key,tempObj)
+
+    })
+    console.log(tempObj)
+    let tempObj2:any = {}
+    Object.keys(tempObj).forEach((key:string)=>{
+      tempObj2[key] = tempObj[key]
+      this.addDoctorForm.form.patchValue(tempObj2)
+      tempObj2 = {}
+    })
+    this.modalComponant.open()
+  }
+
+  giveDataObject(data:any,key:any,tempObj:any){
+
+
+      if(Array.isArray(data[key as keyof Doctor])){
+
+        tempObj[key] = data[key as keyof Doctor]
+      }else if(typeof data[key as keyof Doctor] === 'object'  && data[key as keyof Doctor] !== null){
+
+        Object.keys(data[key as keyof Doctor]).forEach(subKey=>{
+
+          this.giveDataObject(data[key as keyof Doctor],subKey,tempObj)
+        })
+
+      }
+      tempObj[key] = data[key as keyof Doctor]
+      return
+
+  }
 }

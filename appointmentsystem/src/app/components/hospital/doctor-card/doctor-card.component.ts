@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HospitalHttpService } from 'src/app/services/hospital/hospital.http.service';
 import { Doctor } from 'src/app/utils/dto/doctor.model';
 
@@ -11,15 +11,14 @@ export class DoctorCardComponent implements OnInit{
 
 
   @Input()doctor!:Doctor;
+  @Output() viewProfile = new EventEmitter<Doctor>();
   specializations!: string[];
   constructor(private hospitalHttpService:HospitalHttpService){}
   ngOnInit(){
     this.specializations = this.doctor.specializations
   }
   handleClick(){
-    this.hospitalHttpService.getAllHospitals().subscribe((res)=>{
-      console.log(res,"HERERERE")
-    })
-  
+    this.viewProfile.emit(this.doctor)
+
 }
 }

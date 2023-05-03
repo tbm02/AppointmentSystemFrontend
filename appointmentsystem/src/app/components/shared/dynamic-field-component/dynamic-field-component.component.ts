@@ -14,6 +14,6 @@ export class DynamicFieldComponentComponent {
   get isInvalid() {
     // console.log(this.form.controls[this.question.key])
     // console.log(this.question.key," ",this.form.controls[this.question.key])
-    console.log(this.form.controls[this.question.key])
+    // console.log(this.form.controls[this.question.key])
     return (this.form.controls[this.question.key].touched && !this.form.controls[this.question.key].valid); }
 }

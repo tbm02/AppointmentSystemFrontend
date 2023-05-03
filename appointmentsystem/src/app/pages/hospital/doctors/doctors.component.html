@@ -6,10 +6,10 @@
     <button (click)="addNewDoctor()">Add New Doctor</button>
   </div>
   <app-shared-modal #modalRef >
-      <app-shared-dynamic-form [questions]="questions"></app-shared-dynamic-form>
+      <app-shared-dynamic-form [questions]="questions" #addDoctorForm></app-shared-dynamic-form>
   </app-shared-modal>
   <div class="doctor-list">
-    <app-hospital-doctor-card *ngFor="let doctor of filteredDoctors" [doctor]="doctor"></app-hospital-doctor-card>
+    <app-hospital-doctor-card *ngFor="let doctor of filteredDoctors" [doctor]="doctor" (viewProfile)="viewProfile($event)"></app-hospital-doctor-card>
     <p *ngIf="filteredDoctors.length === 0">No doctors found.</p>
   </div>
 </div>

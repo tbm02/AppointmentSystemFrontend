@@ -17,11 +17,11 @@ export class AppointmentsComponent implements OnInit{
   filterfieldValues: FilterObject[] = [
     {
       field: 'status',
-      values: ['Pending', 'Completed', 'Cancelled'],
+      values: [],
       inclusive: false,
     }
   ]
-  constructor(private hospitalHttpService:HospitalHttpService){}
+  constructor(private hospitalHttpService:HospitalHttpService,private filterService:FilterService){}
   ngOnInit(): void {
     this.filteredAppointments =this.appointments
     this.hospitalHttpService.getAllAppointmentsForHospital().subscribe({
@@ -29,6 +29,7 @@ export class AppointmentsComponent implements OnInit{
         console.log(res)
         this.appointments = res.data
         this.filteredAppointments = this.appointments
+        this.filterService.registerValues(this.appointments,this.filterfieldValues)
 
       },error:(err)=>{
         console.log(err,"Error")
@@ -38,12 +39,12 @@ export class AppointmentsComponent implements OnInit{
       }
     })
   }
-  
+
   applyFilter (filterParams: FilterObject[]) {
     console.log("Event Occured",filterParams)
-    this.filteredAppointments = FilterService.applyFilter<Appointment>(this.appointments,filterParams)
-    
-    
+    this.filteredAppointments = this.filterService.applyFilter<Appointment>(this.appointments,filterParams)
+
+
     }
 
 
