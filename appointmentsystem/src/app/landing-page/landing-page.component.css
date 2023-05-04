@@ -31,18 +31,21 @@ padding-top: 20%;
     margin:7.5% auto
 }
 .card-container{
-    display: flex;
+    display: flex;  
     white-space: normal;
-    justify-content: space-evenly   ;
+    justify-content: space-evenly;
     width: 90vw;
     margin:5% auto
     /* padding: 10px; */
 }
 .card{
     border-radius: 5px;
+    width: 33%;
+    height: 15%;
     margin: 0 10%;
-    height: max-content;
+    /* height: max-content; */
 }
+
 .message h1 {
     overflow: hidden;
     border-right: .15em solid orange;
