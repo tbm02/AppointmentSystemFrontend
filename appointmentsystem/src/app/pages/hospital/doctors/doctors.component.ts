@@ -238,48 +238,48 @@ export class DoctorsComponent implements OnInit {
     this.modalComponant.open()
   }
   submitForm(e:Event){
-    console.log(this.addDoctorForm.form.errors)
-  //   console.log(this.addDoctorForm.form.value)
-  //   // this.hospitalHttpService.
-  //   let body:any = this.addDoctorForm.form.value
-  //   console.log(body)
-  //   body["user"] = {
-  //     email:body.email,
-  //     password:body.password,
-  //     contactNo:body.contactNo
-  //   }
-  //   body["hospital"]={
-  //     hospitalId:"1"
-  //   }
-  //   // body.user.
-  //   if(this.selectedId === ''){
-  //   this.hospitalHttpService.addNewDoctor(body).subscribe({
-  //     next:(res)=>{
-  //       console.log(res)
+    // console.log(this.addDoctorForm.form.errors)
+    console.log(this.addDoctorForm.form.value)
+    // this.hospitalHttpService.
+    let body:any = this.addDoctorForm.form.value
+    console.log(body)
+    body["user"] = {
+      email:body.email,
+      password:body.password,
+      contactNo:body.contactNo
+    }
+    body["hospital"]={
+      hospitalId:"1"
+    }
+    // body.user.
+    if(this.selectedId === ''){
+    this.hospitalHttpService.addNewDoctor(body).subscribe({
+      next:(res)=>{
+        console.log(res)
 
 
-  //     },error:(err)=>{
-  //       console.log(err)
-  //     },complete:()=>{
+      },error:(err)=>{
+        console.log(err)
+      },complete:()=>{
 
-  //     }
-  //   })}
-  //   else{
-  //     this.hospitalHttpService.updateDoctor(body,this.selectedId).subscribe({
-  //       next:(res)=>{
-  //         console.log(res)
-  //         this.getDoctorList()
+      }
+    })}
+    else{
+      this.hospitalHttpService.updateDoctor(body,this.selectedId).subscribe({
+        next:(res)=>{
+          console.log(res)
+          this.getDoctorList()
 
-  //       },error:(err)=>{
-  //         console.log(err)
-  //         alert(err.message)
-  //       },complete:()=>{
-
-  //       }
-  //   })
-  //   this.selectedId = ''
-  //   this.modalComponant.close()
-  // }
+        },error:(err)=>{
+          console.log(err)
+          alert(err.message)
+        },complete:()=>{
+          console.log("Subscription ended")
+        }
+    })
+    this.selectedId = ''
+    this.modalComponant.close()
+  }
 }
   removeDoctor(e:Event){
     this.hospitalHttpService.deleteDoctor(this.selectedId).subscribe({
