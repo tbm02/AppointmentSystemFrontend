@@ -13,7 +13,7 @@ import { QuestionBase } from '../dynamic-field-component/dynamic-field-questionb
 export class DynamicFormComponent implements OnInit{
 
   @Input() questions: QuestionBase<string>[] | null = [];
-  
+
   form!: FormGroup;
   // @Output()formDetails = new EventEmitter<FormGroup>();
 
@@ -26,6 +26,9 @@ export class DynamicFormComponent implements OnInit{
 
   onSubmit(){
       console.log(this.form.value)
+  }
+  handleChange(){
+    console.log("Changes")
   }
 
 }

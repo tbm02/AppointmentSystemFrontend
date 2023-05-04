@@ -27,9 +27,9 @@ export class AppointmentsComponent implements OnInit,OnChanges {
       next: (res) => {
         this.appointments = res.data;
         console.log(res);
-        this.addAppointmentForm.form.valueChanges.subscribe(()=>{
-          // console.log("Changes")
-        })
+        // this.addAppointmentForm.form.valueChanges.subscribe(()=>{
+        //   // console.log("Changes")
+        // })
       },
       error: (err) => {
         console.log(err);

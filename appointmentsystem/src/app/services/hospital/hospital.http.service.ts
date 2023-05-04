@@ -17,7 +17,7 @@ export class HospitalHttpService {
     return this.http.get<{statusCode:string,data:Hospital,mMssage:string}>(URL.HOSPITAL_END_POINT+"/1")
   }
   addNewHospital () {}
-  
+
   updateHospitalDetails () {}
 
   getAllAppointmentsForHospital (){
@@ -36,5 +36,13 @@ export class HospitalHttpService {
   }
   getAllDoctorsForHospital () {
     return this.http.get<{statusCode:string,data:Doctor[],mMssage:string}>(URL.DOCTOR_END_POINT+"/hospital/1")
+  }
+  getDoctorById(id:string){
+    console.log("Getting")
+    return this.http.get<{statusCode:string,data:Doctor,mMssage:string}>(URL.DOCTOR_END_POINT+"/"+id)
+  }
+  getDoctorByqueryparam(query:{key:string,value:string}){
+    console.log("Getting")
+    return this.http.get<{statusCode:string,data:Doctor[],mMssage:string}>(URL.DOCTOR_END_POINT+"/query?"+query.key+"="+query.value)
   }
 }

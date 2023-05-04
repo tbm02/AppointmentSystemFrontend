@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { debounceTime, Subject, Subscription } from 'rxjs'
+import { debounceTime, map, Observable, Subject, Subscription } from 'rxjs'
 import { ModalComponent } from 'src/app/components/shared/modal/modal.component'
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal'
 import { HospitalHttpService } from 'src/app/services/hospital/hospital.http.service'
@@ -13,6 +13,7 @@ import { TextboxQuestion } from 'src/app/components/shared/dynamic-field-compone
 import { DropdownQuestion } from 'src/app/components/shared/dynamic-field-component/dyanmic-field-question-text'
 import { DynamicFormComponent } from 'src/app/components/shared/dynamic-form/dynamic-form.component'
 import { DynamicFormService } from 'src/app/services/shared/dynamic-form.service'
+import { AbstractControl, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms'
 
 @Component({
   selector: 'app-hospital-doctors',
@@ -27,7 +28,7 @@ export class DoctorsComponent implements OnInit {
   modalConfig:ModalConfig={modalTitle:"Doctor Form"}
   @ViewChild("modalRef")modalComponant!:ModalComponent
   @ViewChild("addDoctorForm")addDoctorForm!:DynamicFormComponent
- 
+
   filterfieldValues: FilterObject[] = [
     {
       field: 'specializations',
@@ -42,7 +43,7 @@ export class DoctorsComponent implements OnInit {
   constructor (private hospitalHttpService: HospitalHttpService,private modalService: MdbModalService,private filterService:FilterService,private dynamicFormService:DynamicFormService) {}
   filteredDoctors: Doctor[] = this.doctorData
   ngOnInit (): void {
-    // this.subscription = 
+    // this.subscription =
     this.getDoctorList()
   }
   applyFilter (filterParams: FilterObject[]) {
@@ -125,6 +126,26 @@ export class DoctorsComponent implements OnInit {
       required:true,
       value:'',
       type:'email',
+      asyncValidations:[(control:AbstractControl):Promise<ValidationErrors|null>|Observable<ValidationErrors | null>=>{
+        console.log("Inside validator")
+       return new Promise((res,rej)=>{
+
+         this.hospitalHttpService.getDoctorByqueryparam({key:'user.email',value:control.value}).subscribe((response)=>{
+          // console.log("Validation is applied",res)
+            // console.log(res)
+            if(response.data.length){
+              return res({already:true})
+            }
+            else{
+              console.log("Inside else returning null")
+              return res(null)
+            }
+          })
+       })
+
+
+
+      }]
 
     }),
     new TextboxQuestion({
@@ -156,7 +177,7 @@ export class DoctorsComponent implements OnInit {
       label:"OPD End Time",
       required:true,
       value:'',
-      
+
       type:'time',
 
     }),
@@ -217,48 +238,48 @@ export class DoctorsComponent implements OnInit {
     this.modalComponant.open()
   }
   submitForm(e:Event){
-    
-    console.log(this.addDoctorForm.form.value)
-    // this.hospitalHttpService.
-    let body:any = this.addDoctorForm.form.value
-    console.log(body)
-    body["user"] = {
-      email:body.email,
-      password:body.password,
-      contactNo:body.contactNo
-    }
-    body["hospital"]={
-      hospitalId:"1"
-    }
-    // body.user.
-    if(this.selectedId === ''){
-    this.hospitalHttpService.addNewDoctor(body).subscribe({
-      next:(res)=>{
-        console.log(res)
-        
+    console.log(this.addDoctorForm.form.errors)
+  //   console.log(this.addDoctorForm.form.value)
+  //   // this.hospitalHttpService.
+  //   let body:any = this.addDoctorForm.form.value
+  //   console.log(body)
+  //   body["user"] = {
+  //     email:body.email,
+  //     password:body.password,
+  //     contactNo:body.contactNo
+  //   }
+  //   body["hospital"]={
+  //     hospitalId:"1"
+  //   }
+  //   // body.user.
+  //   if(this.selectedId === ''){
+  //   this.hospitalHttpService.addNewDoctor(body).subscribe({
+  //     next:(res)=>{
+  //       console.log(res)
 
-      },error:(err)=>{
-        console.log(err)
-      },complete:()=>{
 
-      }
-    })}
-    else{
-      this.hospitalHttpService.updateDoctor(body,this.selectedId).subscribe({
-        next:(res)=>{
-          console.log(res)
-          this.getDoctorList()
-  
-        },error:(err)=>{
-          console.log(err)
-          alert(err.message)
-        },complete:()=>{
-  
-        }
-    })
-    this.selectedId = ''
-    this.modalComponant.close()
-  }
+  //     },error:(err)=>{
+  //       console.log(err)
+  //     },complete:()=>{
+
+  //     }
+  //   })}
+  //   else{
+  //     this.hospitalHttpService.updateDoctor(body,this.selectedId).subscribe({
+  //       next:(res)=>{
+  //         console.log(res)
+  //         this.getDoctorList()
+
+  //       },error:(err)=>{
+  //         console.log(err)
+  //         alert(err.message)
+  //       },complete:()=>{
+
+  //       }
+  //   })
+  //   this.selectedId = ''
+  //   this.modalComponant.close()
+  // }
 }
   removeDoctor(e:Event){
     this.hospitalHttpService.deleteDoctor(this.selectedId).subscribe({
@@ -276,7 +297,7 @@ export class DoctorsComponent implements OnInit {
     this.modalComponant.close()
 
   }
-  
+
 
   getDoctorList(){
     // this.hospitalHttpService.getAllDoctorsForHospital().subscribe()

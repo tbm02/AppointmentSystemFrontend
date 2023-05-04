@@ -1,4 +1,4 @@
-import { ValidatorFn, Validators } from "@angular/forms";
+import { AsyncValidatorFn, ValidatorFn, Validators } from "@angular/forms";
 
 export class QuestionBase<T> {
   value: T|undefined;
@@ -9,6 +9,7 @@ export class QuestionBase<T> {
   controlType: string;
   type: string;
   validations:ValidatorFn[] = [];
+  asyncValidations:AsyncValidatorFn[] = []
   options: {key: string, value: string}[];
 
   constructor(options: {
@@ -20,6 +21,7 @@ export class QuestionBase<T> {
       controlType?: string,
       type?: string,
       validations?:ValidatorFn[]
+      asyncValidations?:AsyncValidatorFn[]
 
       options?: {key: string, value: string}[];
     } = {}) {
@@ -32,5 +34,6 @@ export class QuestionBase<T> {
     this.type = options.type || '';
     this.options = options.options || [];
     this.validations = options.validations || []
+    this.asyncValidations = options.asyncValidations || []
   }
 }

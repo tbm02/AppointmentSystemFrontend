@@ -5,10 +5,10 @@
 
     <input class="form-input" *ngSwitchCase="'textbox'" [formControlName]="question.key"
     [(ngModel)]="question.value"
-
+      step="2"
             [id]="question.key" [type]="question.type">
 
-    <select class="form-input" [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key"  [(ngModel)]="question.value">
+    <select class="form-input" [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key" (ngModelChange)="handleChange($event)"   [(ngModel)]="question.value">
       <option *ngFor="let opt of question.options" [value]="opt.value">{{opt.key}}</option>
     </select>
 
@@ -17,5 +17,6 @@
   <div class="errorMessage" *ngIf="isInvalid" >
 
     <p *ngIf="form.controls[question.key].errors?.['required']">{{question.label}} is required and can not be empty</p>
+    <p *ngIf="form.controls[question.key].errors?.['already']">{{question.label}}Already Exists</p>
   </div>
 </div>

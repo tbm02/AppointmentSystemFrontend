@@ -13,19 +13,20 @@
         <app-shared-dashboard-card *ngFor="let stat of appointmentStats | keyvalue" [title]="stat.key" [data]="stat.value"></app-shared-dashboard-card>
       </div>
     </div>
-  </div>
     <div class="charts-container">
-        <p>This section Should contain the charts</p>
-        <div class="chart-header">
-            <span>Chart Type:</span>
-            <select [(ngModel)]="chartType" (change)="handleChange(chartType)">
-              <option value="dailyAppointmentCount">Weekly Appointment Details</option>
-              <option value="appointmentByDepartment">Appointments By Specialization</option>
+      <p>This section Should contain the charts</p>
+      <div class="chart-header">
+        <span>Chart Type:</span>
+        <select [(ngModel)]="chartType" (change)="handleChange(chartType)">
+          <option value="dailyAppointmentCount">Weekly Appointment Details</option>
+          <option value="appointmentByDepartment">Appointments By Specialization</option>
 
-              <option value="appointmentShareByDoctor">Appointment Share by Each Doctor</option>
-            </select>
-          </div>
-          <div class="chart">
-          <app-shared-generic-chart *ngIf="showChart" [chartType]="chartType" [data]="data"></app-shared-generic-chart>
-        </div>
+          <option value="appointmentShareByDoctor">Appointment Share by Each Doctor</option>
+        </select>
+      </div>
+      <div class="chart">
+        <app-shared-generic-chart *ngIf="showChart" [chartType]="chartType" [data]="data"></app-shared-generic-chart>
+      </div>
     </div>
+
+  </div>

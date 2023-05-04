@@ -75,6 +75,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   }
   handleChange (value: string) {
+    
     this.data.datasets.splice(0,this.data.datasets.length)
     switch (value) {
       case 'dailyAppointmentCount':

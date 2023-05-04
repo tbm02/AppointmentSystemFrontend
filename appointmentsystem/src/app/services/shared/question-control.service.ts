@@ -9,7 +9,7 @@ export class QuestionControlService {
     const group: any = {};
 
     questions.forEach(question => {
-      group[question.key] = question.validations ? new FormControl(question.value || '',{validators:question.validations})
+      group[question.key] = question.validations ? new FormControl(question.value || '',{validators:question.validations,asyncValidators:question.asyncValidations || []})
                                               : new FormControl(question.value || '');
     });
     return new FormGroup(group);

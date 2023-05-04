@@ -2,7 +2,7 @@
   <form  [formGroup]="form">
 
     <div *ngFor="let question of questions" class="form-field">
-      <app-shared-dynamic-field-component [question]="question" [form]="form"></app-shared-dynamic-field-component >
+      <app-shared-dynamic-field-component [question]="question" [form]="form" (formFieldChanged)="handleChange()"></app-shared-dynamic-field-component >
     </div>
 
     <!-- <div class="form-row">
